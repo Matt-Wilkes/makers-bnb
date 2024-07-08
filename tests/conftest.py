@@ -1,6 +1,8 @@
 import pytest, sys, random, py, pytest, os
 from xprocess import ProcessStarter
 from lib.database_connection import DatabaseConnection
+from  lib.space import Space
+from lib.space_repository import SpaceRepository
 from app import app
 
 # This is a Pytest fixture.
@@ -41,6 +43,9 @@ def test_web_address(xprocess):
 #     # db_connection is now available to us in this test.
 #     # test_web_address is also available to us in this test.
 
+@pytest.fixture
+def created_space():
+    return Space(1, "A space for testing", "Test Space", 2, 100, "UK", "London", [])
 
 # We'll also create a fixture for the client we'll use to make test requests.
 @pytest.fixture
@@ -48,3 +53,12 @@ def web_client():
     app.config['TESTING'] = True # This gets us better errors
     with app.test_client() as client:
         yield client
+
+@pytest.fixture
+def created_space_repo():
+    conn = DatabaseConnection(test_mode=True)
+    conn.connect()
+    conn.seed('seeds/space.sql')
+    space_repo = SpaceRepository(conn)
+    
+    return space_repo
