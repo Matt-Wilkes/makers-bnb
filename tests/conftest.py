@@ -58,7 +58,7 @@ def web_client():
 def created_space_repo():
     conn = DatabaseConnection(test_mode=True)
     conn.connect()
-    conn.seed('seeds/space.sql')
+    conn.seed('seeds/users_seed.sql')
     space_repo = SpaceRepository(conn)
     
     return space_repo
