@@ -1,2 +1,5 @@
-makersbnb-venv
-
+__pycache__
+.vscode
+.pytest_cache
+screenshot.png
+*venv*
