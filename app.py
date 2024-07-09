@@ -6,6 +6,8 @@ from lib.database_connection import get_flask_database_connection
 from lib.user_repository import UserRepository
 from lib.user import User
 from lib.forms import LoginForm, SignupForm
+from lib.space_repository import SpaceRepository
+
 
 
 app = Flask(__name__)
@@ -69,6 +71,14 @@ def logout():
     session.pop('id', None)
     session.pop('email', None)
     return redirect(url_for('login'))
+
+@app.route('/view_space/<id>', methods=['GET'])
+def view(id):
+    connection = get_flask_database_connection(app)
+    space_repository = SpaceRepository(connection)
+    space = space_repository.get_by_id(id)
+    return render_template('view_space.html', space=space)
+    
 
 if __name__ == '__main__':
     app.run(debug=True, port=int(os.environ.get('PORT', 5001)))
