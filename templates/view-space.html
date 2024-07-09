@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block title %}Spaces{% endblock %}
+{% block content %}
+<h1>{{space.name}}</h1>
+<div>
+    <p data-testid="t-description">{{space.description}}</p>
+    <!-- we need to account for single bedroom -->
+    <p data-testid="t-bedrooms">{{space.bedrooms}} Bedrooms</p>
+    <!-- we are assuming GBP only -->
+    <p data-testid="t-price">£{{space.price}}</p>
+    <p data-testid="t-location">{{space.city}}, {{space.country}}</p>
+</div>
+<!-- this doesn't do anything yet -->
+<form action="/" method="POST">
+    <!-- <input data-testid="t-from_date" type="datetime-local" id="from_date" value="From:">
+    <input data-testid="t-to_date" type="datetime-local" id="to_date"> -->
+    <input type="submit" value="Book">
+</form>
+{% endblock %}
