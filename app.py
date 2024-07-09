@@ -1,22 +1,74 @@
 import os
-from flask import Flask, request, render_template
+
+from flask import Flask, render_template, redirect, url_for, flash, request, session
+
 from lib.database_connection import get_flask_database_connection
+from lib.user_repository import UserRepository
+from lib.user import User
+from lib.forms import LoginForm, SignupForm
 
-# Create a new Flask app
+
 app = Flask(__name__)
+app.secret_key = os.urandom(64)
 
-# == Your Routes Here ==
 
-# GET /index
-# Returns the homepage
-# Try it:
-#   ; open http://localhost:5001/index
-@app.route('/index', methods=['GET'])
-def get_index():
-    return render_template('index.html')
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
-# These lines start the server if you run this file directly
-# They also start the server configured to use the test database
-# if started in test mode.
+@app.route('/')
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if request.method == 'POST':
+        if form.validate():
+            user = UserRepository(get_flask_database_connection(app)).find(form.email.data, form.password.data)
+            if user:
+                # print(user.__dict__)
+                session['active'] = True
+                session['id'] = user.id
+                session['email'] = user.email
+                return redirect('/home')
+            else:
+                flash('Wrong email/password combination')
+                render_template('login.html', form=form)
+        else:
+            flash('Wrong form data')
+            render_template('login.html', form=form)
+
+    return render_template('login.html', form=form)
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    form = SignupForm()
+    if request.method == 'POST':
+        if form.validate():
+            user = UserRepository(get_flask_database_connection(app)).create(User(None, form.email.data, form.password.data))
+            if user:
+                # print(user.items())
+                session['active'] = True
+                session['id'] = user['id']
+                session['email'] = user['email']
+                return redirect('/home')
+            else:
+                flash('User with such email already exists')
+                render_template('signup.html', form=form)
+        else:
+            flash('Wrong form data')
+            render_template('signup.html', form=form)
+
+    return render_template('signup.html', form=form)
+
+@app.route('/home')
+def home():
+    return render_template('home.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('active', None)
+    session.pop('id', None)
+    session.pop('email', None)
+    return redirect(url_for('login'))
+
 if __name__ == '__main__':
     app.run(debug=True, port=int(os.environ.get('PORT', 5001)))
