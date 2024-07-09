@@ -9,7 +9,6 @@ from lib.forms import LoginForm, SignupForm
 from lib.space_repository import SpaceRepository
 
 
-
 app = Flask(__name__)
 app.secret_key = os.urandom(64)
 
@@ -23,7 +22,7 @@ def about():
 def login():
     form = LoginForm()
     if request.method == 'POST':
-        if form.validate():
+        if form.validate_on_submit():
             user = UserRepository(get_flask_database_connection(app)).find(form.email.data, form.password.data)
             if user:
                 # print(user.__dict__)
@@ -34,17 +33,13 @@ def login():
             else:
                 flash('Wrong email/password combination')
                 render_template('login.html', form=form)
-        else:
-            flash('Wrong form data')
-            render_template('login.html', form=form)
-
     return render_template('login.html', form=form)
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = SignupForm()
     if request.method == 'POST':
-        if form.validate():
+        if form.validate_on_submit():
             user = UserRepository(get_flask_database_connection(app)).create(User(None, form.email.data, form.password.data))
             if user:
                 # print(user.items())
@@ -55,10 +50,6 @@ def signup():
             else:
                 flash('User with such email already exists')
                 render_template('signup.html', form=form)
-        else:
-            flash('Wrong form data')
-            render_template('signup.html', form=form)
-
     return render_template('signup.html', form=form)
 
 @app.route('/home')
@@ -78,7 +69,7 @@ def view(id):
     space_repository = SpaceRepository(connection)
     space = space_repository.get_by_id(id)
     return render_template('view-space.html', space=space)
-    
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=int(os.environ.get('PORT', 5001)))
