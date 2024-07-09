@@ -1,6 +1,7 @@
 from lib.space_repository import SpaceRepository
 from lib.space import Space 
 
+## updated these tests for combined seed
 
 def test_get_all(created_space_repo):
     assert created_space_repo.get_all() == [
