@@ -10,3 +10,12 @@ def apply_space_routes(app):
         space_repository = SpaceRepository(connection)
         space = space_repository.get_by_id(id)
         return render_template('view-space.html', space=space)
+    
+    @app.route('/view-space/<id>', methods=['POST'])
+    def book(id):
+        connection = get_flask_database_connection(app)
+        space_repository = SpaceRepository(connection)
+        requested_dates = request.form['requested_dates']
+        print(requested_dates)
+        return requested_dates
+        # return redirect(f"/view-space/{id}")

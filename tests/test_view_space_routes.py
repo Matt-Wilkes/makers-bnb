@@ -35,17 +35,30 @@ def test_get_view_space_has_book_button(page, test_web_address, db_connection):
 """
 The view-space page should show a 'From' date picker and a 'to' date picker
 """
-def test_get_view_space_has_date_selectors(page, test_web_address, db_connection):
+def test_get_view_space_has_date_selector(page, test_web_address, db_connection):
     db_connection.seed('seeds/users_seed.sql')
     page.goto(f"http://{test_web_address}/view-space/1")
-    expect(page.get_by_test_id("t-from_date")).to_have_id("from_date")
-    expect(page.get_by_test_id("t-to_date")).to_have_id("to_date")
+    expect(page.get_by_test_id("t-requested_dates")).to_have_id("requested_dates")
     
 
+    # this can be added as a feature later
 # """
-# When I submit the booking form
-# The account user, 
+# The view-space page should show a 'From' date picker and a 'to' date picker
 # """
-# def test_get_view_space_post_to_db(page, test_web_address, db_connection):
+# def test_get_view_space_has_date_selectors(page, test_web_address, db_connection):
 #     db_connection.seed('seeds/users_seed.sql')
 #     page.goto(f"http://{test_web_address}/view-space/1")
+#     expect(page.get_by_test_id("t-from_date")).to_have_id("from_date")
+#     expect(page.get_by_test_id("t-to_date")).to_have_id("to_date")
+    
+
+"""
+When I submit the booking form
+The space id, account user, date should be sent to the bookings table
+"""
+def test_post_view_space_post_to_db(page, test_web_address, db_connection):
+    db_connection.seed('seeds/users_seed.sql')
+    page.goto(f"http://{test_web_address}/view-space/1")
+    date_selector = page.get_by_test_id("t-requested_dates").fill("2024-07-11")
+    
+    

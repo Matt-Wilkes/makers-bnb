@@ -11,10 +11,10 @@
     <p data-testid="t-location">{{space.city}}, {{space.country}}</p>
 </div>
 <!-- this doesn't do anything yet -->
-<form action="/" method="POST">
-    <label for="from_date">From:</label>
-    <input data-testid="t-from_date" type="date" id="from_date" name="from_date">
-    <label for="to_date">To: <input data-testid="t-to_date" type="date" id="to_date" name="to_date"></label>
+<form action="/" method="post">
+    <label for="requested_dates">Date:</label>
+    <input data-testid="t-requested_dates" type="date" id="requested_dates" name="requested_dates">
+    <!-- <label for="to_date">To: <input data-testid="t-to_date" type="date" id="to_date" name="to_date"></label> -->
     <input type="submit" value="Book">
 </form>
 {% endblock %}
