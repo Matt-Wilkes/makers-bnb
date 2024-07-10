@@ -3,6 +3,8 @@ from xprocess import ProcessStarter
 from lib.database_connection import DatabaseConnection
 from  lib.space import Space
 from lib.space_repository import SpaceRepository
+from lib.bookings import Bookings
+from lib.bookings_repository import BookingsRepository
 from app import app
 
 # This is a Pytest fixture.
@@ -45,7 +47,11 @@ def test_web_address(xprocess):
 
 @pytest.fixture
 def created_space():
-    return Space(1, "A space for testing", "Test Space", 2, 100, "UK", "London", [])
+    return Space(1, "A space for testing", "Test Space", 2, 100, "UK", "London", [], 'email.1@gmail.com')
+
+@pytest.fixture
+def created_bookings():
+    return Bookings(1, 1, "email.2@gmail.com", [], "Pending")
 
 # We'll also create a fixture for the client we'll use to make test requests.
 @pytest.fixture
@@ -62,3 +68,12 @@ def created_space_repo():
     space_repo = SpaceRepository(conn)
     
     return space_repo
+
+@pytest.fixture
+def created_bookings_repo():
+    conn = DatabaseConnection(test_mode=True)
+    conn.connect()
+    conn.seed('seeds/users_seed.sql')
+    bookings_repo = BookingsRepository(conn)
+
+    return bookings_repo
