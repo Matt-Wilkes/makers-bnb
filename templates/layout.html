@@ -14,7 +14,7 @@
             {% if session['active'] %}
                 <a class="nav-item nav-link" href="{{ url_for('about') }}">About</a>
                 <a class="nav-item nav-link" href="{{ url_for('home') }}">Home</a>
-                <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                <a class="nav-item nav-link _logout" href="{{ url_for('logout') }}">Logout</a>
             {% else %}
                 <a class="nav-item nav-link" href="{{ url_for('about') }}">About</a>
                 <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
