@@ -26,7 +26,7 @@ def about():
 def login():
     form = LoginForm()
     if request.method == 'POST':
-        if form.validate():
+        if form.validate_on_submit():
             user = UserRepository(get_flask_database_connection(app)).find(form.email.data, form.password.data)
             if user:
                 # print(user.__dict__)
@@ -37,17 +37,13 @@ def login():
             else:
                 flash('Wrong email/password combination')
                 render_template('login.html', form=form)
-        else:
-            flash('Wrong form data')
-            render_template('login.html', form=form)
-
     return render_template('login.html', form=form)
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = SignupForm()
     if request.method == 'POST':
-        if form.validate():
+        if form.validate_on_submit():
             user = UserRepository(get_flask_database_connection(app)).create(User(None, form.email.data, form.password.data))
             if user:
                 # print(user.items())
@@ -58,10 +54,6 @@ def signup():
             else:
                 flash('User with such email already exists')
                 render_template('signup.html', form=form)
-        else:
-            flash('Wrong form data')
-            render_template('signup.html', form=form)
-
     return render_template('signup.html', form=form)
 
 @app.route('/home')

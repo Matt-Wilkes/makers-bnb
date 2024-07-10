@@ -3,13 +3,9 @@
 {% block content %}
 <h1>Login</h1>
 
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-        {% for message in messages %}
-            {{ message }}
-        {% endfor %}
-    {% endif %}
-{% endwith %}
+{% for message in get_flashed_messages() %}
+    <div class="alert alert-danger p-1" role="alert">{{ message }}</div>
+{% endfor %}
 
 <form action="login" method="post" class="form">
     <div>{{ form.email.label }}</div>

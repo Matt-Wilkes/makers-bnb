@@ -3,13 +3,9 @@
 {% block content %}
 <h1>Signup</h1>
 
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-        {% for message in messages %}
-            {{ message }}
-        {% endfor %}
-    {% endif %}
-{% endwith %}
+{% for message in get_flashed_messages() %}
+    <div class="alert alert-danger p-1" role="alert">{{ message }}</div>
+{% endfor %}
 
 <form action="signup" method="post" class="form">
     <div>{{ form.email.label }}</div>
@@ -18,6 +14,9 @@
     <div>{{ form.password }}</div>
     <div>{{ form.confirm.label }}</div>
     <div>{{ form.confirm }}</div>
+    {% for error in form.confirm.errors %}
+        <div class="alert alert-danger p-1">{{ error }}</div>
+    {% endfor %}
     <div>{{ form.hidden_tag() }}</div>
     <div>{{ form.submit() }}</div>
 </form>
