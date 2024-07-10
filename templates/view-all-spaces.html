@@ -1,24 +1,34 @@
 {% extends "layout.html" %}
 {% block title %}All Spaces{% endblock %}
 {% block content %}
-<h1>All Spaces</h1>
+<div class="col"></div>
 
-{% if session['active'] %}
-    <div class="list-group">
-        {% for space in spaces %}
-            <!-- filter out spaces created by logged in user -->
-            {% if space.owner_id != session['email'] %}
-            <div>
-                <a href="{{ url_for('view', id=space.id) }}" class="list-group-item list-group-item-action">
-                    <div class="h6">{{ space.city }}, {{ space.country }}</div>
-                    <div class="_name">{{ space.name }}</div>
-                    <div class="small">{{ space.description }}</div>
-                </a>
-            </div>
+<div class="col-5">
+    <div class="card">
+        <h1 class="card-header">All Spaces</h1>
+
+        <div class="card-body">
+            {% if session['active'] %}
+                <div class="list-group">
+                    {% for space in spaces %}
+                        <!-- filter out spaces created by logged in user -->
+                        {% if space.owner_id != session['email'] %}
+                        <div>
+                            <a href="{{ url_for('view', id=space.id) }}" class="list-group-item list-group-item-action">
+                                <div class="h6">{{ space.city }}, {{ space.country }}</div>
+                                <div class="_name">{{ space.name }}</div>
+                                <div class="small">{{ space.description }}</div>
+                            </a>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="_logged_out">You are not logged in. Please <a href="{{ url_for('login') }}">Login</a></div>
             {% endif %}
-        {% endfor %}
+        </div>
     </div>
-{% else %}
-    <div class="_logged_out">You are not logged in. Please <a href="{{ url_for('login') }}">Login</a></div>
-{% endif %}
+</div>
+
+<div class="col"></div>
 {% endblock %}
