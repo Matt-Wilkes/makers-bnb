@@ -70,6 +70,10 @@ def view(id):
     space = space_repository.get_by_id(id)
     return render_template('view-space.html', space=space)
 
+@app.route('/new-space', methods = ['POST'])
+def new_space():
+    return render_template('new-space.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=int(os.environ.get('PORT', 5001)))
