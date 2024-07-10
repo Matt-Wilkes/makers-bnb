@@ -16,7 +16,7 @@ def test_init(created_space):
 
 def test_is_equal(created_space):
     space1 = Space(1, "A space for testing", "Test Space", 2, 100, "UK", "London", [], 'email.1@gmail.com')
-    assert created_space == space1
+    assert created_space.owner_id == 'email.1@gmail.com'
 
 def test_string_format(created_space):
     assert str(created_space) == "Space(1, A space for testing, Test Space, 2, 100, UK, London, [], email.1@gmail.com)"

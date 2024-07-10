@@ -9,13 +9,14 @@ from lib.forms import LoginForm, SignupForm
 from lib.space_repository import SpaceRepository
 from lib.space import Space
 
+from routes.bookings_routes import bookings_routes
+from view_space_routes import apply_space_routes
+apply_space_routes(app)
 
 app = Flask(__name__)
 app.secret_key = os.urandom(64)
 
-from view_space_routes import apply_space_routes
-apply_space_routes(app)
-
+bookings_routes(app)
 
 @app.route('/about')
 def about():
@@ -65,8 +66,9 @@ def logout():
     session.pop('active', None)
     session.pop('id', None)
     session.pop('email', None)
+    flash('You were logged out')
     return redirect(url_for('login'))
-    
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=int(os.environ.get('PORT', 5001)))

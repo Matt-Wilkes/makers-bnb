@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block title %}Spaces{% endblock %}
+{% block content %}
+<br>
+<h1> List a new space on Makers BnB </h1>
+<form>
+    <label for="name">Space name:</label><br>
+    <input type="text" id="name" name="name" size="50"><br>
+    <br>
+    <label for="description">Brief Description of the Space:</label><br>
+    <input type="text" id="description" name="description" size="50" ><br>
+    <br>
+    <label for="bedrooms">Number of Bedrooms:</label><br>
+    <input type="text" id="bedrooms" name="bedrooms" size="50" ><br>
+    <br>
+    <label for="city">City:</label><br>
+    <input type="text" id="city" name="city" size="50" ><br>
+    <br>
+    <label for="country">Country:</label><br>
+    <input type="text" id="country" name="county" size="50" ><br>
+    <br>
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}
