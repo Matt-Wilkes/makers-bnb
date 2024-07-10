@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block title %}All Spaces{% endblock %}
+{% block content %}
+<h1>All Spaces</h1>
+
+{% if session['active'] %}
+    <div class="list-group">
+        {% for space in spaces %}
+            <div><a href="#" class="list-group-item list-group-item-action">
+                <div class="h6">{{ space.city }}, {{ space.country }}</div>
+                <div>{{ space.name }}</div>
+                <div class="small">{{ space.description }}</div>
+            </a></div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="_logged_out">You are not logged in. Please <a href="{{ url_for('login') }}">Login</a></div>
+{% endif %}
+{% endblock %}
