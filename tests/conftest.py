@@ -47,12 +47,11 @@ def test_web_address(xprocess):
 
 @pytest.fixture
 def created_space():
-    return Space(1, "A space for testing", "Test Space", 2, 100, "UK", "London", [], 'email.1@gmail.com')
+    return Space(1, "A space for testing", "Test Space", 2, 100, "UK", "London", [])
 
 @pytest.fixture
 def created_bookings():
-    return Bookings(1, 1, "email.2@gmail.com", [], "Pending")
-
+    return Bookings(1, 1, 1, [], 'Pending')
 # We'll also create a fixture for the client we'll use to make test requests.
 @pytest.fixture
 def web_client():

@@ -3,5 +3,14 @@
 {% block content %}
 <h1>Home</h1>
 
-<div>You are logged in as <div class="_session_email">{{ session['email'] }}</dive></div>
+{% if session['active'] %}
+    <div class="alert alert-success p-1">You are logged in as: <span class="_session_email">{{ session['email'] }}</span></div>
+
+    <div><a class="_link" href="#">All Spaces</a></div>
+    <div><a class="_link" href="#">My Spaces</a></div>
+    <div><a class="_link" href="#">My Bookings</a></div>
+
+{% else %}
+    <div class="_logged_out">You are not logged in. Please <a href="{{ url_for('login') }}">Login</a></div>
+{% endif %}
 {% endblock %}
