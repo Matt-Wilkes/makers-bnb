@@ -122,3 +122,14 @@ def test_logout(page, test_web_address, db_connection):
 
     #checking content of home.html
     expect(page.locator('h1')).to_have_text('Login')
+
+def test_get_home_logged_out(page, test_web_address):
+    page.goto(f"http://{test_web_address}/home")
+    expect(page.locator('._logged_out')).to_have_text('You are not logged in. Please Login')
+
+def test_get_home_logged_in(page, test_web_address, db_connection):
+    test_post_login(page, test_web_address, db_connection)
+    expect(page.locator('._link')).to_have_text(['All Spaces', 'My Spaces', 'My Bookings'])
+
+
+    # expect(page.locator('._logged_out')).to_be_empty()

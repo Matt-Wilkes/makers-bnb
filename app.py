@@ -61,6 +61,7 @@ def logout():
     session.pop('active', None)
     session.pop('id', None)
     session.pop('email', None)
+    flash('You were logged out')
     return redirect(url_for('login'))
 
 @app.route('/view-space/<id>', methods=['GET'])
