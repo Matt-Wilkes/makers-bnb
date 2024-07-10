@@ -1,6 +1,10 @@
 from lib.database_connection import get_flask_database_connection
 from lib.space_repository import SpaceRepository
 from lib.space import Space
+from lib.bookings import Bookings
+from lib.bookings_repository import BookingsRepository
+from lib.user import User
+from lib.user_repository import UserRepository
 from flask import request, render_template, redirect, url_for
 
 def apply_space_routes(app):
@@ -15,7 +19,15 @@ def apply_space_routes(app):
     def book(id):
         connection = get_flask_database_connection(app)
         space_repository = SpaceRepository(connection)
+        booking_repository = BookingsRepository(connection)
+        user_repository = UserRepository(connection)
         requested_dates = request.form['requested_dates']
+        email = request.form['session_email']
+        booking = Bookings(None, id, email, [requested_dates], "Pending")
+        booking_repository.create(booking)
+
         print(requested_dates)
-        return requested_dates
-        # return redirect(f"/view-space/{id}")
+        print(id)
+        print(email)
+        
+        return redirect(f"/view-space/{id}")

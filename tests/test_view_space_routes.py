@@ -58,7 +58,17 @@ The space id, account user, date should be sent to the bookings table
 """
 def test_post_view_space_post_to_db(page, test_web_address, db_connection):
     db_connection.seed('seeds/users_seed.sql')
+    page.goto(f"http://{test_web_address}/login")
+    page.fill('input[name="email"]', 'email.1@gmail.com')
+    page.fill('input[name="password"]', 'Password_1')
+    page.click('input[name="submit"]')
     page.goto(f"http://{test_web_address}/view-space/1")
-    date_selector = page.get_by_test_id("t-requested_dates").fill("2024-07-11")
+    page.get_by_test_id("t-requested_dates").fill("2024-07-11")
+    page.get_by_role("button").click
+    page.goto(f"http://{test_web_address}/bookings")
+    list_items = page.locator("tr")
+    expect(list_items).to_have_count(3)
+    
+
     
     

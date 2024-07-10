@@ -9,12 +9,13 @@
     <!-- we are assuming GBP only -->
     <p data-testid="t-price">£{{space.price}}</p>
     <p data-testid="t-location">{{space.city}}, {{space.country}}</p>
+    
 </div>
-<!-- this doesn't do anything yet -->
-<form action="/" method="post">
+
+<form method="post">
     <label for="requested_dates">Date:</label>
     <input data-testid="t-requested_dates" type="date" id="requested_dates" name="requested_dates">
-    <!-- <label for="to_date">To: <input data-testid="t-to_date" type="date" id="to_date" name="to_date"></label> -->
+    <input type="hidden" id="session_email" name="session_email" value="{{session['email']}}">
     <input type="submit" value="Book">
 </form>
 {% endblock %}

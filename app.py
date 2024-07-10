@@ -11,12 +11,13 @@ from lib.space import Space
 
 from routes.bookings_routes import bookings_routes
 from view_space_routes import apply_space_routes
-apply_space_routes(app)
+
 
 app = Flask(__name__)
 app.secret_key = os.urandom(64)
 
 bookings_routes(app)
+apply_space_routes(app)
 
 @app.route('/about')
 def about():
