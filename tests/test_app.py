@@ -1,5 +1,5 @@
 import pytest
-pytest.skip(allow_module_level=True)
+# pytest.skip(allow_module_level=True)
 
 from playwright.sync_api import Page, expect
 
