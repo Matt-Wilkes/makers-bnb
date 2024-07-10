@@ -8,10 +8,11 @@ from lib.user import User
 from lib.forms import LoginForm, SignupForm
 from lib.space_repository import SpaceRepository
 
+from routes.bookings_routes import bookings_routes
 
 app = Flask(__name__)
 app.secret_key = os.urandom(64)
-
+bookings_routes(app)
 
 @app.route('/about')
 def about():

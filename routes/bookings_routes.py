@@ -4,63 +4,51 @@ from flask import Flask, render_template, redirect, url_for, flash, request, ses
 
 from lib.database_connection import get_flask_database_connection
 from lib.bookings import Bookings
+from lib.space_repository import SpaceRepository
 from lib.bookings_repository import BookingsRepository
 
+from lib.forms import StatusForm
 
-def user_bookings_routes(app):
 
-    @app.route('/my-bookings', methods = ['GET'])
+def bookings_routes(app):
+
+    @app.route('/bookings', methods=['GET'])
     def get_bookings():
         connection = get_flask_database_connection(app)
         repository = BookingsRepository(connection)
-        bookings = repository.get_all()
+        user_id = session.get('user_id')  # Assuming you set user_id in session after user login
+        if user_id:
+            bookings = repository.get_by_requester_id(user_id)
+        else:
+            bookings = repository.get_all()
         return render_template('bookings/index.html', bookings=bookings)
-    
-    @app.route('/my-bookings/new', methods = ['GET'])
-    def get_new_booking():
-        return render_template('bookings/new.html')
-    
-    @app.route('/my-bookings', methods = ['POST'])
-    def post_booking():
-        connection = get_flask_database_connection(app)
-        repository = BookingsRepository(connection)
-        booking = repository.create(Bookings(None, request.form['space_id'], request.form['user_id'], request.form['date']))
-        return redirect('/my-bookings')
-    
-    @app.route('/my-bookings/<int:id>', methods = ['GET'])
+
+    @app.route('/bookings/<int:id>', methods=['GET'])
     def get_booking(id):
         connection = get_flask_database_connection(app)
         repository = BookingsRepository(connection)
         booking = repository.get_by_id(id)
-        return render_template('bookings/show.html', booking=booking)
+        space_repo = SpaceRepository(connection)
+        space = space_repo.get_by_id(booking.spaces_id)
+        return render_template('bookings/view.html', booking=booking, space=space)
     
-    @app.route('/my-bookings/<int:id>/edit', methods = ['GET'])
-    def get_edit_booking(id):
-        connection = get_flask_database_connection(app)
-        repository = BookingsRepository(connection)
-        booking = repository.get_booking(id)
-        return render_template('bookings/edit.html', booking=booking)
-    
-    @app.route('/my-bookings/<int:id>', methods = ['POST'])
-    def put_booking(id):
-        connection = get_flask_database_connection(app)
-        repository = BookingsRepository(connection)
-        booking = repository.update_booking(Bookings(id, request.form['space_id'], request.form['user_id'], request.form['date']))
-        return redirect('/my-bookings')
-    
-    @app.route('/my-bookings/<int:id>', methods = ['POST'])
+    @app.route('/bookings/<int:id>/delete', methods=['POST'])
     def delete_booking(id):
         connection = get_flask_database_connection(app)
         repository = BookingsRepository(connection)
-        repository.delete_booking(id)
-        return redirect('/my-bookings')
+        repository.delete(id)
+        return redirect(url_for('get_bookings'))
     
-    @app.route('/my-bookings/<int:id>/confirm', methods = ['POST'])
-    def confirm_booking(id):
+    @app.route('/bookings/<int:id>/approve', methods=['POST'])
+    def approve_booking(id):
         connection = get_flask_database_connection(app)
         repository = BookingsRepository(connection)
-        booking = repository.confirm(id)
-        return redirect('/my-bookings')
-    
+        repository.approve(id)
+        return redirect(url_for('get_bookings'))
 
-    
+    @app.route('/bookings/<int:id>/reject', methods=['POST'])
+    def reject_booking(id):
+        connection = get_flask_database_connection(app)
+        repository = BookingsRepository(connection)
+        repository.reject(id)
+        return redirect(url_for('get_bookings'))

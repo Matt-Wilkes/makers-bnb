@@ -31,7 +31,9 @@ class BookingsRepository:
         rows = self.db_connection.execute("SELECT * FROM bookings WHERE status = %s",[status])
         return [Bookings(row['id'], row['spaces_id'], row['requester_id'], row['requested_dates'], row['status']) for row in rows]
     
-    def confirm(self,id):
+    def approve(self,id):
         self.db_connection.execute("UPDATE bookings SET status = 'Approved' WHERE id = %s",[id])
-        rows = self.db_connection.execute("SELECT * FROM bookings WHERE id = %s",[id])
-        return Bookings(rows[0]['id'], rows[0]['spaces_id'], rows[0]['requester_id'], rows[0]['requested_dates'], rows[0]['status'])
+
+    def reject(self,id):
+        self.db_connection.execute("UPDATE bookings SET status = 'Rejected' WHERE id = %s",[id])
+        

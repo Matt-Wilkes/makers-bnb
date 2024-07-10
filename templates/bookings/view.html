@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking</title>
+</head>
+<body>
+<h1>Booking</h1>
+{% for message in get_flashed_messages() %}
+    <div class="alert alert-danger p-1" role="alert">{{ message }}</div>
+{% endfor %}
+
+{% if booking %}
+    <div class="_booking_id">Booking ID: {{ booking.id }}</div>
+    <div class="_user_id">User ID: {{ booking.requester_id }}</div>
+    <div class="_space_id">Spaces ID: {{ booking.spaces_id }}</div>
+    <div class="_space_name">Spaces name: {{ space.name }}</div>
+    <div class="_confirmed">Status: {{ booking.status }}</div>
+
+    <form action="{{ url_for('approve_booking', id=booking.id) }}" method="post">
+        <input type="submit" value="Approve">
+    </form>
+
+    <form action="{{ url_for('reject_booking', id=booking.id) }}" method="post">
+        <input type="submit" value="Reject">
+    </form>
+
+    <a href="{{ url_for('get_bookings') }}"> Back to all bookings</a>
+{% else %}
+    <div>Booking not found</div>
+{% endif %}
+</body>
+</html>
