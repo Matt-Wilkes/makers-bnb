@@ -7,11 +7,15 @@ from lib.user_repository import UserRepository
 from lib.user import User
 from lib.forms import LoginForm, SignupForm
 from lib.space_repository import SpaceRepository
+from lib.space import Space
 
 from routes.bookings_routes import bookings_routes
+from view_space_routes import apply_space_routes
+apply_space_routes(app)
 
 app = Flask(__name__)
 app.secret_key = os.urandom(64)
+
 bookings_routes(app)
 
 @app.route('/about')
@@ -64,17 +68,6 @@ def logout():
     session.pop('email', None)
     flash('You were logged out')
     return redirect(url_for('login'))
-
-@app.route('/view-space/<id>', methods=['GET'])
-def view(id):
-    connection = get_flask_database_connection(app)
-    space_repository = SpaceRepository(connection)
-    space = space_repository.get_by_id(id)
-    return render_template('view-space.html', space=space)
-
-@app.route('/new-space', methods = ['POST'])
-def new_space():
-    return render_template('new-space.html')
 
 
 if __name__ == '__main__':
