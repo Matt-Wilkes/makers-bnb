@@ -1,3 +1,6 @@
+import pytest
+# pytest.skip(allow_module_level=True)
+
 # This is an example of how to use the DatabaseConnection class
 
 """

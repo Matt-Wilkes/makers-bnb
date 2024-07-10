@@ -1,3 +1,6 @@
+import pytest
+# pytest.skip(allow_module_level=True)
+
 from lib.space import Space
 
 def test_init(created_space):
