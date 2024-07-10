@@ -9,12 +9,12 @@ class BookingsRepository:
         print(rows)
         return [Bookings(row['id'], row['spaces_id'], row['requester_id'], row['requested_dates'], row['status']) for row in rows]
     
+    def create(self, Bookings):
+        self.db_connection.execute("INSERT INTO Bookings(spaces_id, requester_id, requested_dates, status) VALUES (%s, %s, %s, %s)", [Bookings.spaces_id, Bookings.requester_id, Bookings.requested_dates, Bookings.status])
+      
     def get_by_id(self,id):
         rows = self.db_connection.execute("SELECT * FROM bookings WHERE id = %s",[id])
         return Bookings(rows[0]['id'], rows[0]['spaces_id'], rows[0]['requester_id'], rows[0]['requested_dates'], rows[0]['status'])
-    
-    def create(self, bookings):
-        self.db_connection.execute("INSERT INTO bookings (spaces_id, requester_id, requested_dates, status) VALUES (%s, %s, %s, %s) ", [bookings.spaces_id, bookings.requester_id, bookings.requested_dates, bookings.status])
 
     def delete(self, id):
         self.db_connection.execute("DELETE FROM bookings WHERE id = %s", [id])
