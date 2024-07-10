@@ -4,9 +4,11 @@
 <h1>Home</h1>
 
 {% if session['active'] %}
-    <div class="alert alert-success p-1">You are logged in as: <span class="_session_email">{{ session['email'] }}</span></div>
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-success p-1" role="alert">{{ message }}<span class="_session_email">{{ session['email'] }}</span></div>
+    {% endfor %}
 
-    <div><a class="_link" href="{{ url_for('view_all_spaces') }}">All Spaces</a></div>
+    <div><a class="_link _all_spaces" href="{{ url_for('view_all_spaces') }}">All Spaces</a></div>
     <div><a class="_link" href="#">My Spaces</a></div>
     <div><a class="_link" href="#">My Bookings</a></div>
 

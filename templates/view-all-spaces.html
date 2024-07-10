@@ -6,11 +6,15 @@
 {% if session['active'] %}
     <div class="list-group">
         {% for space in spaces %}
-            <div><a href="#" class="list-group-item list-group-item-action">
-                <div class="h6">{{ space.city }}, {{ space.country }}</div>
-                <div>{{ space.name }}</div>
-                <div class="small">{{ space.description }}</div>
-            </a></div>
+            {% if space.owner_id != session['email'] %}
+            <div>
+                <a href="{{ url_for('view', id=space.id) }}" class="list-group-item list-group-item-action">
+                    <div class="h6">{{ space.city }}, {{ space.country }}</div>
+                    <div class="_name">{{ space.name }}</div>
+                    <div class="small">{{ space.description }}</div>
+                </a>
+            </div>
+            {% endif %}
         {% endfor %}
     </div>
 {% else %}

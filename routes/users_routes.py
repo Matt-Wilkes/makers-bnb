@@ -22,6 +22,7 @@ def users_routes(app):
                     session['active'] = True
                     session['id'] = user.id
                     session['email'] = user.email
+                    flash('You are logged in as: ')
                     return redirect('/home')
                 else:
                     flash('Wrong email/password combination')
@@ -39,6 +40,7 @@ def users_routes(app):
                     session['active'] = True
                     session['id'] = user['id']
                     session['email'] = user['email']
+                    flash('You are logged in as: ')
                     return redirect('/home')
                 else:
                     flash('User with such email already exists')
