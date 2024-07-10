@@ -11,8 +11,7 @@
     <div><a class="_link _all_spaces" href="{{ url_for('view_all_spaces') }}">All Spaces</a></div>
     <div><a class="_link" href="#">My Spaces</a></div>
     <div><a class="_link" href="#">My Bookings</a></div>
-
 {% else %}
-    <div class="_logged_out">You are not logged in. Please <a href="{{ url_for('login') }}">Login</a></div>
+    <div class="_logged_out alert alert-info p-1">You are not logged in. Please <a href="{{ url_for('login') }}">Login</a></div>
 {% endif %}
 {% endblock %}
