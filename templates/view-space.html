@@ -12,8 +12,9 @@
 </div>
 <!-- this doesn't do anything yet -->
 <form action="/" method="POST">
-    <!-- <input data-testid="t-from_date" type="datetime-local" id="from_date" value="From:">
-    <input data-testid="t-to_date" type="datetime-local" id="to_date"> -->
+    <label for="from_date">From:</label>
+    <input data-testid="t-from_date" type="date" id="from_date" name="from_date">
+    <label for="to_date">To: <input data-testid="t-to_date" type="date" id="to_date" name="to_date"></label>
     <input type="submit" value="Book">
 </form>
 {% endblock %}

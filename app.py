@@ -7,11 +7,14 @@ from lib.user_repository import UserRepository
 from lib.user import User
 from lib.forms import LoginForm, SignupForm
 from lib.space_repository import SpaceRepository
-
+from lib.space import Space
 
 
 app = Flask(__name__)
 app.secret_key = os.urandom(64)
+
+from view_space_routes import apply_space_routes
+apply_space_routes(app)
 
 
 @app.route('/about')
@@ -71,13 +74,6 @@ def logout():
     session.pop('id', None)
     session.pop('email', None)
     return redirect(url_for('login'))
-
-@app.route('/view-space/<id>', methods=['GET'])
-def view(id):
-    connection = get_flask_database_connection(app)
-    space_repository = SpaceRepository(connection)
-    space = space_repository.get_by_id(id)
-    return render_template('view-space.html', space=space)
     
 
 if __name__ == '__main__':
