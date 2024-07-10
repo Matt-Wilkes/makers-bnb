@@ -39,10 +39,10 @@ CREATE SEQUENCE IF NOT EXISTS id_seq;
 CREATE TABLE bookings(
     id SERIAL PRIMARY KEY,
     spaces_id INT,
-    requester_id VARCHAR(60),
+    requester_id INT,
     requested_dates DATE[],
     status VARCHAR(60)
     );
 
-INSERT INTO bookings (spaces_id, requester_id, requested_dates, status) VALUES (1, 'email.2@gmail.com', '{}', 'Pending');
-INSERT INTO bookings (spaces_id, requester_id, requested_dates, status) VALUES (3, 'email.2@gmail.com', '{}', 'Approved');
+INSERT INTO bookings (spaces_id, requester_id, requested_dates, status) VALUES (1, 2, '{}', 'Pending');
+INSERT INTO bookings (spaces_id, requester_id, requested_dates, status) VALUES (3, 2, '{}', 'Approved');

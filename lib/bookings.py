@@ -11,5 +11,12 @@ class Bookings:
     def __eq__(self, value: object) -> bool:
         return self.__dict__ == value.__dict__
     
-    def __repr__(self) -> str:
+    def __str__(self) -> str:
         return f"Bookings({self.id}, {self.spaces_id}, {self.requester_id}, {self.requested_dates}, {self.status})"
+    
+    def __repr__(self) -> str:
+        return self.__str__()
+    
+    def update_status(self, status):
+        self.status = status
+        return self.status
