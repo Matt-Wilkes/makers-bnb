@@ -15,6 +15,7 @@ class BookingsRepository:
     
     def create(self, bookings):
         self.db_connection.execute("INSERT INTO bookings (spaces_id, requester_id, requested_dates, status, owner_id) VALUES (%s, %s, %s, %s,%s)", [bookings.spaces_id, bookings.requester_id, bookings.requested_dates, bookings.status])
+        return Bookings(rows[0]['id'], rows[0]['spaces_id'], rows[0]['requester_id'], rows[0]['requested_dates'], rows[0]['status'], rows[0]['owner_id'])
 
     def delete(self, id):
         self.db_connection.execute("DELETE FROM bookings WHERE id = %s", [id])
@@ -36,10 +37,11 @@ class BookingsRepository:
 
     def reject(self,id):
         self.db_connection.execute("UPDATE bookings SET status = 'Rejected' WHERE id = %s",[id])
-    
+
     def cancel(self,id):
         self.db_connection.execute("UPDATE bookings SET status = 'Cancelled' WHERE id = %s",[id])
 
     def get_by_owner_id(self,owner_id):
         rows = self.db_connection.execute("SELECT * FROM bookings WHERE owner_id = %s",[owner_id])
         return [Bookings(row['id'], row['spaces_id'], row['requester_id'], row['requested_dates'], row['status'], row['ownder_id']) for row in rows]
+

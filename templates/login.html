@@ -1,19 +1,32 @@
 {% extends "layout.html" %}
 {% block title %}Login{% endblock %}
 {% block content %}
-<h1>Login</h1>
+<div class="col"></div>
 
-{% for message in get_flashed_messages() %}
-    <div class="alert alert-danger p-1" role="alert">{{ message }}</div>
-{% endfor %}
+<div class="col">
+    <div class="card">
+        <h1 class="card-header">Login</h1>
 
-<form action="login" method="post" class="form">
-    <div>{{ form.email.label }}</div>
-    <div>{{ form.email }}</div>
-    <div>{{ form.password.label }}</div>
-    <div>{{ form.password }}</div>
-    <div>{{ form.hidden_tag() }}</div>
-    <div>{{ form.submit() }}</div>
-</form>
+        <div class="card-body">
+            {% if session['active'] %}
+                <div class="_logged_in alert alert-info p-1" role="alert">You are logged in. Please <a href="{{ url_for('logout') }}">Logout</a></div>
+            {% else %}
+                {% for message in get_flashed_messages() %}
+                    <div class="alert alert-danger p-1" role="alert">{{ message }}</div>
+                {% endfor %}
 
+                <form action="login" method="post" class="form">
+                    <div>{{ form.email.label }}</div>
+                    <div>{{ form.email }}</div>
+                    <div>{{ form.password.label }}</div>
+                    <div>{{ form.password }}</div>
+                    <div>{{ form.hidden_tag() }}</div>
+                    <div class="mt-2">{{ form.submit() }}</div>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="col"></div>
 {% endblock %}
