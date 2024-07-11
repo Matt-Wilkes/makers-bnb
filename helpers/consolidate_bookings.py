@@ -33,10 +33,10 @@ def consolidate_bookings(all_bookings):
         if (booking.date == last_date + timedelta(days=1) and
             booking.spaces_id == current_booking['spaces_id'] and
             booking.requester_id == current_booking['requester_id']):
-            # Extend the current booking
+            
             current_booking['check-out'] = booking.date
         else:
-            # Save the current booking and start a new one
+            
             for key in current_booking:
                 bookings[key].append(current_booking[key])
             
@@ -50,8 +50,9 @@ def consolidate_bookings(all_bookings):
                 'owner_id': booking.owner_id
             }
     
-    # Append the last processed booking
+    
     for key in current_booking:
         bookings[key].append(current_booking[key])
     
+    # print('BOOKINGS:', bookings)
     return bookings
