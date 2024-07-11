@@ -1,17 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bookings</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+{% block title %}Bookings{% endblock %}
+{% block content %}
     <h1>Bookings</h1>
     <table>
         <thead>
             <tr>
                 <th>ID</th>
+                <th> Owner ID</th>
                 <th>Space ID</th>
                 <th>Start Date</th>
                 <th>End Date</th>
@@ -21,8 +16,10 @@
         </thead>
         <tbody>
             {% for booking in bookings %}
+            {% if session['email'] == booking['owner_id'] %}
                 <tr>
                     <td>{{ booking['id'] }}</td>
+                    <td>{{ booking['owner_id'] }}</td>
                     <td>{{ booking['spaces_id'] }}</td>
                     <td>{{ booking['start_date'] }}</td>
                     <td>{{ booking['end_date'] }}</td>
@@ -32,11 +29,11 @@
                 
                     </td>
                 </tr>
+            {% endif %}
             {% endfor %}
         </tbody>
     </table>
 
     <a href="/spaces">Back to all spaces</a>
     <a href="/bookings/">Back to all bookings</a>
-</body>
-</html>
+{% endblock %}
