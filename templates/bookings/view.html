@@ -7,18 +7,20 @@
     <a href="{{ url_for('logout') }}">Logout</a>
 
 
-{% if booking %}
-    <div class="_booking_id">Booking ID: {{ booking.id }}</div>
-    <div class="_user_id">User ID: {{ booking.requester_id }}</div>
-    <div class="_space_id">Spaces ID: {{ booking.spaces_id }}</div>
-    <div class="_space_name">Spaces name: {{ space.name }}</div>
-    <div class="_confirmed">Status: {{ booking.status }}</div>
-
-    <form action="{{ url_for('approve_booking', id=booking.id) }}" method="post">
+{% if bookings %}
+    <div class="_booking_id">Booking ID: {{ bookings['id'][0] }}</div>
+    <div class="_user_id">User ID: {{ bookings['requester_id'][0] }}</div>
+    <div class="_space_id">Spaces ID: {{ bookings['spaces_id'][0] }}</div>
+    <div class="_space_name">Spaces name: {{ space['name'] }}</div>
+    <div class="_check_in">Check-in: {{ bookings['check-in'][0] }}</div>
+    <div class="_check_out">Check-out: {{ bookings['check-out'][0] }}</div>
+    <div class="_confirmed">Status: {{ bookings['status'][0] }}</div>
+    
+    <form action="{{ url_for('approve_booking', id=bookings['id'][0]) }}" method="post">
         <input type="submit" value="Approve">
     </form>
 
-    <form action="{{ url_for('reject_booking', id=booking.id) }}" method="post">
+    <form action="{{ url_for('reject_booking', id=bookings['id'][0]) }}" method="post">
         <input type="submit" value="Reject">
     </form>
 
