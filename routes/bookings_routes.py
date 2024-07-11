@@ -7,7 +7,6 @@ from lib.bookings import Bookings
 from lib.space_repository import SpaceRepository
 from lib.bookings_repository import BookingsRepository
 
-from lib.forms import StatusForm
 
 
 def bookings_routes(app):
@@ -18,7 +17,7 @@ def bookings_routes(app):
         repository = BookingsRepository(connection)
         user_id = session.get('user_id')  # Assuming you set user_id in session after user login
         if user_id:
-            bookings = repository.get_by_requester_id(user_id)
+            bookings = repository.get_by_owner_id(owner_id=user_id)
         else:
             bookings = repository.get_all()
         return render_template('bookings/index.html', bookings=bookings)
