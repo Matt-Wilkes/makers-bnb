@@ -4,17 +4,26 @@
 <h1>{{space.name}}</h1>
 <div>
     <p data-testid="t-description">{{space.description}}</p>
-    <!-- we need to account for single bedroom -->
     <p data-testid="t-bedrooms">{{space.bedrooms}} Bedrooms</p>
     <!-- we are assuming GBP only -->
     <p data-testid="t-price">£{{space.price}}</p>
     <p data-testid="t-location">{{space.city}}, {{space.country}}</p>
+    <!-- want to see available dates in the future -->
+    <!--  get a list of dates 30 days ahead-->
+    <!-- if date is in booked dates - exlude it -->
+    
 </div>
-<!-- this doesn't do anything yet -->
-<form action="/" method="post">
-    <label for="requested_dates">Date:</label>
-    <input data-testid="t-requested_dates" type="date" id="requested_dates" name="requested_dates">
-    <!-- <label for="to_date">To: <input data-testid="t-to_date" type="date" id="to_date" name="to_date"></label> -->
-    <input type="submit" value="Book">
+
+<form method="post">
+    <div data-testid="t-available_dates">
+        <label for="available_dates">Available Dates</label>
+            <select name="available_dates" id="available_dates">
+            {% for date in available_dates %}
+            <option data-testid="t-select_date" value="{{date}}">{{date}}</option>
+            {% endfor %}
+            </select>
+    </div>
+    <input type="hidden" id="session_email" name="session_email" value="{{session['email']}}">
+    <input name="submit" type="submit" value="Book">
 </form>
 {% endblock %}

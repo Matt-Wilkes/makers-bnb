@@ -38,3 +38,4 @@ def test_update(created_space_repo):
         Space(2, 'A horrible place to stay', 'Makers Shed', 1, 5, 'UK', 'Burnley', [], 'email.1@gmail.com'),
         Space(3, 'A fantastic holiday destination', 'Makers Villa', 1, 5000, 'USA', 'California', [], 'email.1@gmail.com'),
         Space(1, 'A lovely place to stay', 'Makers Mansion', 3, 120, 'UK', 'London', [], 'email.1@gmail.com')]
+    
