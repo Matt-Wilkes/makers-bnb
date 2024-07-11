@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking</title>
-</head>
-<body>
+{% extends "layout.html" %}
+{% block title %}Booking{% endblock %}
+{% block content %}
 <h1>Booking</h1>
-{% for message in get_flashed_messages() %}
-    <div class="alert alert-danger p-1" role="alert">{{ message }}</div>
-{% endfor %}
+
+{% if session['active'] %}
+    <a href="{{ url_for('logout') }}">Logout</a>
+
 
 {% if booking %}
     <div class="_booking_id">Booking ID: {{ booking.id }}</div>
@@ -32,5 +26,8 @@
 {% else %}
     <div>Booking not found</div>
 {% endif %}
-</body>
-</html>
+
+{% else %}
+    <div class="_logged_out">You are not logged in. Please <a href="{{ url_for('login') }}">Login</a></div>
+{% endif %}
+{% endblock %}

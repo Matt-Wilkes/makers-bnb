@@ -7,6 +7,7 @@
     <div class="card">
         <h1 class="card-header">Home</h1>
 
+
         <div class="card-body">
             {% if session['active'] %}
                 {% for message in get_flashed_messages() %}
@@ -16,7 +17,8 @@
                 <div class="list-group">
                     <a class="_link _all_spaces list-group-item list-group-item-action" href="{{ url_for('view_all_spaces') }}">All Spaces</a>
                     <a class="_link list-group-item list-group-item-action" href="#">My Spaces</a>
-                    <a class="_link list-group-item list-group-item-action" href="#">My Bookings</a>
+                    <a class="_link list-group-item list-group-item-action" href="/bookings">My Bookings</a>
+                    <a class="_link list-group-item list-group-item-action" href="/reservations">My Reservations</a>
                 </div>
             {% else %}
                 <div class="_logged_out alert alert-info p-1">You are not logged in. Please <a href="{{ url_for('login') }}">Login</a></div>

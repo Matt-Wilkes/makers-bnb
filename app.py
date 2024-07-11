@@ -9,10 +9,12 @@ from routes.bookings_routes import bookings_routes
 from routes.users_routes import users_routes
 from routes.spaces_routes import spaces_routes
 from view_space_routes import apply_space_routes
+from routes.reservations_routes import reservations_routes
 
 app = Flask(__name__)
 app.secret_key = os.urandom(64)
 
+reservations_routes(app)
 bookings_routes(app)
 apply_space_routes(app)
 users_routes(app)

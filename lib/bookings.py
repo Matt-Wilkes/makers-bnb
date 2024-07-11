@@ -1,10 +1,11 @@
 class Bookings:
-    def __init__(self, id, spaces_id, requester_id, requested_dates, status):
+    def __init__(self, id, spaces_id, requester_id, requested_dates, status, owner_id):
         self.id = id
         self.spaces_id = spaces_id
         self.requester_id = requester_id
         self.requested_dates = requested_dates
         self.status = status
+        self.owner_id = owner_id
         
 
     
@@ -17,6 +18,4 @@ class Bookings:
     def __repr__(self) -> str:
         return self.__str__()
     
-    def update_status(self, status):
-        self.status = status
-        return self.status
+    
