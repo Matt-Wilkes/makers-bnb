@@ -30,7 +30,7 @@ CREATE TABLE spaces(
     );
 
 INSERT INTO spaces (description, name, bedrooms, price, country, city, booked_dates, owner_id) VALUES ('A lovely place to stay', 'Makers Mansion', 3, 100, 'UK', 'London', '{}', 'email.1@gmail.com');
-INSERT INTO spaces (description, name, bedrooms, price, country, city, booked_dates, owner_id) VALUES ('A horrible place to stay', 'Makers Shed', 1, 5, 'UK', 'Burnley', '{}', 'email.2@gmail.com');
+INSERT INTO spaces (description, name, bedrooms, price, country, city, booked_dates, owner_id) VALUES ('A horrible place to stay', 'Makers Shed', 1, 5, 'UK', 'Burnley', '{}', 'email.1@gmail.com');
 INSERT INTO spaces (description, name, bedrooms, price, country, city, booked_dates, owner_id) VALUES ('A fantastic holiday destination', 'Makers Villa', 1, 5000, 'USA', 'California', '{}', 'email.1@gmail.com');
 
 INSERT INTO spaces (description, name, bedrooms, price, country, city, booked_dates, owner_id) VALUES ('Hunt grizzly bears, catch salmon', 'Makers Retreat', 0, 10000, 'USA', 'Alaska', '{}', 'email.2@gmail.com');
