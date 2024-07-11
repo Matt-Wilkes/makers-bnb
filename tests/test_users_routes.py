@@ -4,7 +4,6 @@ import pytest
 from playwright.sync_api import Page, expect
 from lib.user_repository import UserRepository
 
-
 # Testing login.html get request
 def test_get_login(page, test_web_address):
     page.goto(f"http://{test_web_address}/login")
