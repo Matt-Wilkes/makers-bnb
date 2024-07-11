@@ -6,7 +6,6 @@ class BookingsRepository:
         
     def get_all(self):
         rows = self.db_connection.execute("SELECT * FROM bookings")
-        print(rows)
         return [Bookings(row['id'], row['spaces_id'], row['requester_id'], row['date'], row['status'], row['owner_id']) for row in rows]
     
     def get_by_id(self,id):
@@ -33,11 +32,12 @@ class BookingsRepository:
         return [Bookings(row['id'], row['spaces_id'], row['requester_id'], row['date'], row['status'], row['owner_id']) for row in rows]
     
     def get_by_date_spaces_id(self, date, spaces_id):
-        row = self.db_connection.execute("SELECT * FROM bookings WHERE date = %s AND spaces_id = %s",[date, spaces_id])
-        return Bookings(row[0]['id'], row[0]['spaces_id'], row[0]['requester_id'], row[0]['date'], row[0]['status'], row[0]['owner_id'])
+        rows= self.db_connection.execute("SELECT * FROM bookings WHERE date = %s AND spaces_id = %s",[date, spaces_id])
+        return [Bookings(row['id'], row['spaces_id'], row['requester_id'], row['date'], row['status'], row['owner_id']) for row in rows]
 
     def approve(self,id):
         self.db_connection.execute("UPDATE bookings SET status = 'Approved' WHERE id = %s",[id])
+        
 
     def reject(self,id):
         self.db_connection.execute("UPDATE bookings SET status = 'Rejected' WHERE id = %s",[id])
@@ -50,5 +50,13 @@ class BookingsRepository:
 
     def get_by_owner_id(self,owner_id):
         rows = self.db_connection.execute("SELECT * FROM bookings WHERE owner_id = %s",[owner_id])
-        return [Bookings(row['id'], row['spaces_id'], row['requester_id'], row['date'], row['status'], row['ownder_id']) for row in rows]
+        return [Bookings(row['id'], row['spaces_id'], row['requester_id'], row['date'], row['status'], row['owner_id']) for row in rows]
 
+    def get_by_owner_id_status(self,owner_id,status):
+        rows = self.db_connection.execute("SELECT * FROM bookings WHERE owner_id = %s AND status = %s",[owner_id,status])
+        return [Bookings(row['id'], row['spaces_id'], row['requester_id'], row['date'], row['status'], row['owner_id']) for row in rows]
+    
+    def get_consolidated_by_id(self,id):
+        booking = self.get_by_id(id)
+        rows  = self.db_connection.execute("SELECT * FROM bookings WHERE requester_id = %s AND spaces_id = %s ORDER BY date",[booking.requester_id,booking.spaces_id])
+        return [Bookings(row['id'], row['spaces_id'], row['requester_id'], row['date'], row['status'], row['owner_id']) for row in rows]

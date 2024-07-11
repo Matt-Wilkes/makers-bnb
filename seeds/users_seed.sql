@@ -50,18 +50,34 @@ CREATE TABLE bookings(
     owner_id VARCHAR,
     status VARCHAR(60));
 
-insert into bookings (spaces_id, requester_id, date, owner_id, status) values (1, 'email.2@gmail.com', '2024-07-12', 'email.1@gmail.com', 'available');
-insert into bookings (spaces_id, requester_id, date, owner_id, status) values (1, 'email.2@gmail.com', '2024-07-13', 'email.1@gmail.com', 'available');
-insert into bookings (spaces_id, requester_id, date, owner_id, status) values (1, 'email.2@gmail.com', '2024-07-14', 'email.1@gmail.com', 'available');
-insert into bookings (spaces_id, requester_id, date, owner_id, status) values (1, 'email.2@gmail.com', '2024-07-15', 'email.1@gmail.com', 'available');
-insert into bookings (spaces_id, requester_id, date, owner_id, status) values (1, 'email.2@gmail.com', '2024-07-16', 'email.1@gmail.com', 'available');
-insert into bookings (spaces_id, requester_id, date, owner_id, status) values (1, 'email.2@gmail.com', '2024-07-17', 'email.1@gmail.com', 'available');
-insert into bookings (spaces_id, requester_id, date, owner_id, status) values (1, 'email.2@gmail.com', '2024-07-18', 'email.1@gmail.com', 'available');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (1, 'email.2@gmail.com', '2024-07-12', 'email.1@gmail.com', 'Available');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (1, 'email.2@gmail.com', '2024-07-13', 'email.1@gmail.com', 'Available');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (1, 'email.2@gmail.com', '2024-07-14', 'email.1@gmail.com', 'Available');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (1, 'email.2@gmail.com', '2024-07-15', 'email.1@gmail.com', 'Available');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (1, 'email.2@gmail.com', '2024-07-16', 'email.1@gmail.com', 'Available');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (1, 'email.2@gmail.com', '2024-07-17', 'email.1@gmail.com', 'Available');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (1, 'email.2@gmail.com', '2024-07-18', 'email.1@gmail.com', 'Available');
 
-insert into bookings (spaces_id, requester_id, date, owner_id, status) values (2, 'email.1@gmail.com', '2024-07-12', 'email.2@gmail.com', 'available');
-insert into bookings (spaces_id, requester_id, date, owner_id, status) values (2, 'email.1@gmail.com', '2024-07-13', 'email.2@gmail.com', 'available');
-insert into bookings (spaces_id, requester_id, date, owner_id, status) values (2, 'email.1@gmail.com', '2024-07-14', 'email.2@gmail.com', 'available');
-insert into bookings (spaces_id, requester_id, date, owner_id, status) values (2, 'email.1@gmail.com', '2024-07-15', 'email.2@gmail.com', 'available');
-insert into bookings (spaces_id, requester_id, date, owner_id, status) values (2, 'email.1@gmail.com', '2024-07-16', 'email.2@gmail.com', 'available');
-insert into bookings (spaces_id, requester_id, date, owner_id, status) values (2, 'email.1@gmail.com', '2024-07-17', 'email.2@gmail.com', 'available');
-insert into bookings (spaces_id, requester_id, date, owner_id, status) values (2, 'email.1@gmail.com', '2024-07-18', 'email.2@gmail.com', 'available');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (2, 'email.2@gmail.com', '2024-07-12', 'email.1@gmail.com', 'Pending');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (2, 'email.2@gmail.com', '2024-07-13', 'email.1@gmail.com', 'Pending');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (2, 'email.2@gmail.com', '2024-07-14', 'email.1@gmail.com', 'Pending');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (2, 'email.2@gmail.com', '2024-07-15', 'email.1@gmail.com', 'Pending');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (2, 'email.2@gmail.com', '2024-07-16', 'email.1@gmail.com', 'Pending');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (2, 'email.2@gmail.com', '2024-07-17', 'email.1@gmail.com', 'Pending');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (2, 'email.2@gmail.com', '2024-07-18', 'email.1@gmail.com', 'Pending');
+
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (4, 'email.1@gmail.com', '2024-07-12', 'email.2@gmail.com', 'Available');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (4, 'email.1@gmail.com', '2024-07-13', 'email.2@gmail.com', 'Available');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (4, 'email.1@gmail.com', '2024-07-14', 'email.2@gmail.com', 'Available');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (4, 'email.1@gmail.com', '2024-07-15', 'email.2@gmail.com', 'Available');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (4, 'email.1@gmail.com', '2024-07-16', 'email.2@gmail.com', 'Available');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (4, 'email.1@gmail.com', '2024-07-17', 'email.2@gmail.com', 'Available');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (4, 'email.1@gmail.com', '2024-07-18', 'email.2@gmail.com', 'Available');
+
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (5, 'email.1@gmail.com', '2024-07-13', 'email.2@gmail.com', 'Pending');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (5, 'email.1@gmail.com', '2024-07-14', 'email.2@gmail.com', 'Pending');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (5, 'email.1@gmail.com', '2024-07-12', 'email.2@gmail.com', 'Pending');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (5, 'email.1@gmail.com', '2024-07-15', 'email.2@gmail.com', 'Pending');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (5, 'email.1@gmail.com', '2024-07-16', 'email.2@gmail.com', 'Pending');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (5, 'email.1@gmail.com', '2024-07-17', 'email.2@gmail.com', 'Pending');
+insert into bookings (spaces_id, requester_id, date, owner_id, status) values (5, 'email.1@gmail.com', '2024-07-18', 'email.2@gmail.com', 'Pending');
