@@ -31,15 +31,7 @@ def test_get_view_space_has_book_button(page, test_web_address, db_connection):
     db_connection.seed('seeds/users_seed.sql')
     page.goto(f"http://{test_web_address}/view-space/1")
     expect(page.get_by_role("button")).to_have_text("Book")
-    
-"""
-The view-space page should show a 'From' date picker and a 'to' date picker
-"""
-def test_get_view_space_has_date_selector(page, test_web_address, db_connection):
-    db_connection.seed('seeds/users_seed.sql')
-    page.goto(f"http://{test_web_address}/view-space/1")
-    expect(page.get_by_test_id("t-requested_dates")).to_have_id("requested_dates")
-    
+     
 
     # this can be added as a feature later
 # """
@@ -50,7 +42,7 @@ def test_get_view_space_has_date_selector(page, test_web_address, db_connection)
 #     page.goto(f"http://{test_web_address}/view-space/1")
 #     expect(page.get_by_test_id("t-from_date")).to_have_id("from_date")
 #     expect(page.get_by_test_id("t-to_date")).to_have_id("to_date")
-    
+
 
 """
 When I submit the booking form
@@ -63,12 +55,11 @@ def test_post_view_space_post_to_db(page, test_web_address, db_connection):
     page.fill('input[name="password"]', 'Password_1')
     page.click('input[name="submit"]')
     page.goto(f"http://{test_web_address}/view-space/1")
-    page.get_by_test_id("t-requested_dates").fill("2024-07-11")
-    page.get_by_role("button").click
+    dropdown = page.locator("#available_dates")
+    dropdown.select_option("2024-07-15")
+    page.locator('input[name="submit"]').click()
     page.goto(f"http://{test_web_address}/bookings")
-    list_items = page.locator("tr")
-    expect(list_items).to_have_count(3)
+    table_items = page.locator("tr")
+    expect(table_items).to_have_count(3)
     
 
-    
-    
