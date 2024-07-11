@@ -50,5 +50,11 @@ class BookingsRepository:
 
     def get_by_owner_id(self,owner_id):
         rows = self.db_connection.execute("SELECT * FROM bookings WHERE owner_id = %s",[owner_id])
-        return [Bookings(row['id'], row['spaces_id'], row['requester_id'], row['date'], row['status'], row['ownder_id']) for row in rows]
+        return [Bookings(row['id'], row['spaces_id'], row['requester_id'], row['date'], row['status'], row['owner_id']) for row in rows]
+    
+    def get_by_spaces_id_available(self, spaces_id):
+        rows = self.db_connection.execute("select * from bookings WHERE spaces_id = %s AND status IN('available','pending')",[spaces_id])
+        return [Bookings(row['id'], row['spaces_id'], row['requester_id'], row['date'], row['status'], row['owner_id']) for row in rows]
+    
+    
 
