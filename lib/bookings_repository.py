@@ -14,7 +14,7 @@ class BookingsRepository:
         return Bookings(rows[0]['id'], rows[0]['spaces_id'], rows[0]['requester_id'], rows[0]['requested_dates'], rows[0]['status'], rows[0]['owner_id'])
     
     def create(self, bookings):
-        self.db_connection.execute("INSERT INTO bookings (spaces_id, requester_id, requested_dates, status, owner_id) VALUES (%s, %s, %s, %s,%s)", [bookings.spaces_id, bookings.requester_id, bookings.requested_dates, bookings.status])
+        rows = self.db_connection.execute("INSERT INTO bookings (spaces_id, requester_id, requested_dates, status, owner_id) VALUES (%s, %s, %s, %s,%s)", [bookings.spaces_id, bookings.requester_id, bookings.requested_dates, bookings.status])
         return Bookings(rows[0]['id'], rows[0]['spaces_id'], rows[0]['requester_id'], rows[0]['requested_dates'], rows[0]['status'], rows[0]['owner_id'])
 
     def delete(self, id):
@@ -32,6 +32,10 @@ class BookingsRepository:
         rows = self.db_connection.execute("SELECT * FROM bookings WHERE status = %s",[status])
         return [Bookings(row['id'], row['spaces_id'], row['requester_id'], row['requested_dates'], row['status'], row['owner_id']) for row in rows]
     
+    def get_by_requested_dates_spaces_id(self, requested_dates, spaces_id):
+        row = self.db_connection.execute("SELECT * FROM bookings WHERE requested_dates = %s AND spaces_id = %s",[requested_dates, spaces_id])
+        return Bookings(row[0]['id'], row[0]['spaces_id'], row[0]['requester_id'], row[0]['requested_dates'], row[0]['status'], row[0]['owner_id'])
+
     def approve(self,id):
         self.db_connection.execute("UPDATE bookings SET status = 'Approved' WHERE id = %s",[id])
 
@@ -40,6 +44,9 @@ class BookingsRepository:
 
     def cancel(self,id):
         self.db_connection.execute("UPDATE bookings SET status = 'Cancelled' WHERE id = %s",[id])
+
+    def set_pending(self,id):
+        self.db_connection.execute("UPDATE bookings SET status = 'Pending' WHERE id = %s",[id]) 
 
     def get_by_owner_id(self,owner_id):
         rows = self.db_connection.execute("SELECT * FROM bookings WHERE owner_id = %s",[owner_id])
