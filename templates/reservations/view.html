@@ -2,10 +2,7 @@
 {% block title %}Reservation{% endblock %}
 {% block content %}
 <h1>Reservation</h1>
-
-{% if session['active'] %}
-    <a href="{{ url_for('logout') }}">Logout</a>
-
+{% if session['email'] %}
 
 {% if reservation %}
     <div class="_reservation_id">Reservation ID: {{ reservation.id }}</div>
@@ -14,13 +11,18 @@
     <div class="_space_name">Spaces name: {{ space.name }}</div>
     <div class="_confirmed">Status: {{ reservation.status }}</div>
 
+    <form action="{{ url_for('cancel_reservation', id=reservation.id) }}" method="post">
+        <input type="submit" value="Cancel">
 
     <a href="{{ url_for('get_bookings') }}"> Back to all bookings</a>
+
 {% else %}
     <div>Booking not found</div>
 {% endif %}
 
 {% else %}
-    <div class="_logged_out">You are not logged in. Please <a href="{{ url_for('login') }}">Login</a></div>
+    <div>You must be logged in to view this page</div>
+    <a href="{{ url_for('login') }}">Login</a>
+    <a href="{{ url_for('signup') }}">Register</a>
 {% endif %}
 {% endblock %}

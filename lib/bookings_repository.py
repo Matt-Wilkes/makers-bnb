@@ -11,7 +11,7 @@ class BookingsRepository:
     
     def get_by_id(self,id):
         rows = self.db_connection.execute("SELECT * FROM bookings WHERE id = %s",[id])
-        return Bookings(rows[0]['id'], rows[0]['spaces_id'], rows[0]['requester_id'], rows[0]['requested_dates'], rows[0]['status'])
+        return Bookings(rows[0]['id'], rows[0]['spaces_id'], rows[0]['requester_id'], rows[0]['requested_dates'], rows[0]['status'], rows[0]['owner_id'])
     
     def create(self, bookings):
         self.db_connection.execute("INSERT INTO bookings (spaces_id, requester_id, requested_dates, status, owner_id) VALUES (%s, %s, %s, %s,%s)", [bookings.spaces_id, bookings.requester_id, bookings.requested_dates, bookings.status])
