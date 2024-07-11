@@ -15,7 +15,7 @@
 <body>
     <div class="container-fluid">
         <nav class="navbar navbar-expand-sm navbar-light bg-light">
-            <a class="navbar-brand">MakersBnB</a>
+            <a class="navbar-brand" href="{{url_for('home')}}">MakersBnB</a>
             <ul class="navbar-nav ms-auto">
                 {% if session['active'] %}
                     <a class="nav-item nav-link" href="{{ url_for('about') }}">About</a>

@@ -33,7 +33,7 @@ def apply_space_routes(app):
         connection = get_flask_database_connection(app)
         booking_repository = BookingsRepository(connection)
         requested_dates = request.form['available_dates']
-        email = request.form['session_email']
-        booking = Bookings(None, id, email, [requested_dates], "Pending")
-        booking_repository.create(booking)
-        return redirect(f"/view-space/{id}")
+        booking = booking_repository.get_by_date_spaces_id(requested_dates, id)
+        booking_repository.set_pending(booking.id)
+        return redirect(url_for('view', id=id))
+
