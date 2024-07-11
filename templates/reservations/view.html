@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block title %}Reservation{% endblock %}
+{% block content %}
+<h1>Reservation</h1>
+
+{% if session['active'] %}
+    <a href="{{ url_for('logout') }}">Logout</a>
+
+
+{% if reservation %}
+    <div class="_reservation_id">Reservation ID: {{ reservation.id }}</div>
+    <div class="_user_id">User ID: {{ reservation.requester_id }}</div>
+    <div class="_space_id">Spaces ID: {{ reservation.spaces_id }}</div>
+    <div class="_space_name">Spaces name: {{ space.name }}</div>
+    <div class="_confirmed">Status: {{ reservation.status }}</div>
+
+
+    <a href="{{ url_for('get_bookings') }}"> Back to all bookings</a>
+{% else %}
+    <div>Booking not found</div>
+{% endif %}
+
+{% else %}
+    <div class="_logged_out">You are not logged in. Please <a href="{{ url_for('login') }}">Login</a></div>
+{% endif %}
+{% endblock %}

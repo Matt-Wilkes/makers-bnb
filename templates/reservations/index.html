@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+{% block title %}Reservations{% endblock %}
+{% block content %}
+    <h1>Reservations</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th> User ID</th>
+                <th>Space ID</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Confirmed</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reservation in reservations %}
+            {% if session['email'] == reservation['requester_id'] %}
+                <tr>
+                    <td>{{ reservation['id'] }}</td>
+                    <td>{{ reservation['requester_id'] }}</td>
+                    <td>{{ reservation['spaces_id'] }}</td>
+                    <td>{{ reservation['start_date'] }}</td>
+                    <td>{{ reservation['end_date'] }}</td>
+                    <td>{{ reservation['status'] }}</td>
+                    <td>
+                        <a href="/reservations/{{ reservation['id'] }}">View</a>
+                
+                    </td>
+                </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="/spaces">Back to all spaces</a>
+    <a href="/reservations/">Back to all reservations</a>
+{% endblock %}
