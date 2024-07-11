@@ -3,39 +3,39 @@
 {% block content %}
     <h1>Bookings</h1>
 
-    
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th> Owner ID</th>
-                <th>Space ID</th>
-                <th>Date</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for booking in bookings %}
-            {% if session['email'] == booking['owner_id'] %}
+    {% if bookings %}
+        <table>
+            <thead>
                 <tr>
-                    <td>{{ booking['id'] }}</td>
-                    <td>{{ booking['owner_id'] }}</td>
-                    <td>{{ booking['spaces_id'] }}</td>
-                    <td>{{ booking['date'] }}</td>
-                    <td>{{ booking['status'] }}</td>
-                    <td>
-                        <a href="/bookings/{{ booking['id'] }}">View</a>
-                
-                    </td>
+                    <th>ID</th>
+                    <th>User ID</th>
+                    <th>Space ID</th>
+                    <th>Check-in</th>
+                    <th>Check-out</th>
+                    <th>Confirmed</th>
+                    <th>Actions</th>
                 </tr>
-            {% endif %}
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for i in range(bookings['id']|length) %}
+                    <tr>
+                        <td>{{ bookings['id'][i] }}</td>
+                        <td>{{ bookings['requester_id'][i] }}</td>
+                        <td>{{ bookings['spaces_id'][i] }}</td>
+                        <td>{{ bookings['check-in'][i] }}</td>
+                        <td>{{ bookings['check-out'][i] }}</td>
+                        <td>{{ bookings['status'][i] }}</td>
+                        <td>
+                            <a href="{{ url_for('get_booking', id=bookings['id'][i]) }}">View</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>You have no bookings.</p>
+    {% endif %}
 
     <a href="/spaces">Back to all spaces</a>
     <a href="/bookings/">Back to all bookings</a>
 {% endblock %}
-
-

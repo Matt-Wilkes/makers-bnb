@@ -6,7 +6,6 @@ class BookingsRepository:
         
     def get_all(self):
         rows = self.db_connection.execute("SELECT * FROM bookings")
-        print(rows)
         return [Bookings(row['id'], row['spaces_id'], row['requester_id'], row['date'], row['status'], row['owner_id']) for row in rows]
     
     def get_by_id(self,id):
@@ -50,5 +49,5 @@ class BookingsRepository:
 
     def get_by_owner_id(self,owner_id):
         rows = self.db_connection.execute("SELECT * FROM bookings WHERE owner_id = %s",[owner_id])
-        return [Bookings(row['id'], row['spaces_id'], row['requester_id'], row['date'], row['status'], row['ownder_id']) for row in rows]
+        return [Bookings(row['id'], row['spaces_id'], row['requester_id'], row['date'], row['status'], row['owner_id']) for row in rows]
 

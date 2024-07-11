@@ -6,30 +6,27 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>User ID</th>
-                <th>Space ID</th>
-                <th>Date</th>
-                <th>Confirmed</th>
+                <th>Space Name </th>
+                <th>Owner email</th>
+                <th>Check-In</th>
+                <th>Check-Out</th>
+                <th>Status</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            {% for reservation in reservations %}
-            {% if session['email'] == reservation['requester_id'] %}
+            {% for i in range(reservations['id']|length) %}
                 <tr>
-                    <td>{{ reservation['id'] }}</td>
-                    <td>{{ reservation['requester_id'] }}</td>
-                    <td>{{ reservation['spaces_id'] }}</td>
-                    <td>{{ reservation['date'] }}</td>
-                    <td>{{ reservation['status'] }}</td>
+                    <td>{{ reservations['id'][i] }}</td>
+                    <td>{{ reservations['owner_id'][i] }}</td>
+                    <td>{{ reservations['check-in'][i] }}</td>
+                    <td>{{ reservations['check-out'][i] }}</td>
+                    <td>{{ reservations['status'][i] }}</td>
                     <td>
-                        <a href="/reservations/{{ reservation['id'] }}">View</a>
-                
+                        <a href="{{ url_for('get_reservation', id=reservations['id'][i]) }}">View</a>
                     </td>
                 </tr>
-            {% endif %}
             {% endfor %}
-        </tbody>
     </table>
 
     <a href="/spaces">Back to all spaces</a>

@@ -1,13 +1,9 @@
 import os
-
 from flask import Flask, render_template, redirect, url_for, flash, request, session
-
 from lib.database_connection import get_flask_database_connection
-from lib.bookings import Bookings
-from lib.space_repository import SpaceRepository
 from lib.bookings_repository import BookingsRepository
-
-
+from lib.space_repository import SpaceRepository
+from helpers.consolidate_bookings import consolidate_bookings
 
 def bookings_routes(app):
 
@@ -15,11 +11,10 @@ def bookings_routes(app):
     def get_bookings():
         connection = get_flask_database_connection(app)
         repository = BookingsRepository(connection)
-        user_id = session.get('user_id')  # Assuming you set user_id in session after user login
-        if user_id:
-            bookings = repository.get_by_owner_id(owner_id=user_id)
-        else:
-            bookings = repository.get_all()
+        user_id = session.get('email')
+        all_bookings = repository.get_by_owner_id(user_id)
+        bookings = consolidate_bookings(all_bookings)
+        print('BOOKINGS: ', bookings)
         return render_template('bookings/index.html', bookings=bookings)
 
     @app.route('/bookings/<int:id>', methods=['GET'])
