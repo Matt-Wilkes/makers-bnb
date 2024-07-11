@@ -1,8 +1,9 @@
 from lib.database_connection import get_flask_database_connection
 from lib.space_repository import SpaceRepository
 from lib.bookings import Bookings
+from lib.user_repository import UserRepository
 from lib.bookings_repository import BookingsRepository
-from flask import request, render_template, redirect, url_for
+from flask import request, render_template, redirect, url_for, session
 from datetime import datetime
 
 
@@ -28,7 +29,12 @@ def apply_space_routes(app):
         connection = get_flask_database_connection(app)
         booking_repository = BookingsRepository(connection)
         requested_date = request.form['available_dates']
+        user_id = session['id']
         booking = booking_repository.get_by_date_spaces_id(requested_date, id)
-        booking_repository.set_pending(booking.id)
-        return redirect(url_for('view', id=id))
-
+        booking_repository.request_booking(user_id, booking.id)
+        return redirect(url_for('confirmation'))
+    
+    @app.route('/confirmation', methods=['GET'])
+    def confirmation():
+        return render_template('confirmation.html')
+        
