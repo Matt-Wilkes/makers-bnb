@@ -30,7 +30,7 @@ def spaces_routes(app):
                 print('####################')
                 print(space_return)
                 if space_return:
-                    flash(f'You have created new space named {space_return['name']}')
+                    # flash(f'You have created new space named {space_return['name']}')
                     return redirect('/view-my-spaces')
                 else:
                     flash('Space with such name and location already exists')
