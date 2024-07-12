@@ -20,6 +20,7 @@ def apply_space_routes(app):
         for booking in available_bookings:
             if booking.date > datetime.today().date():
                 available_dates.append(booking.date)
+                sorted(available_dates)
                 print(booking.date)
             
         return render_template('spaces/view-space.html', space=space, available_dates=available_dates)
@@ -29,7 +30,7 @@ def apply_space_routes(app):
         connection = get_flask_database_connection(app)
         booking_repository = BookingsRepository(connection)
         requested_date = request.form['available_dates']
-        user_id = session['id']
+        user_id = session['email']
         booking = booking_repository.get_by_date_spaces_id(requested_date, id)
         booking_repository.request_booking(user_id, booking.id)
         return redirect(url_for('confirmation'))
