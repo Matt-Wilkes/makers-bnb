@@ -5,6 +5,8 @@ from  lib.space import Space
 from lib.space_repository import SpaceRepository
 from lib.bookings import Bookings
 from lib.bookings_repository import BookingsRepository
+from lib.user import User
+from lib.user_repository import UserRepository
 from app import app
 
 # This is a Pytest fixture.
@@ -46,6 +48,10 @@ def test_web_address(xprocess):
 #     # test_web_address is also available to us in this test.
 
 @pytest.fixture
+def created_user():
+    return User(3,'email@testing.com', 'password')
+
+@pytest.fixture
 def created_space():
     return Space(1, "A space for testing", "Test Space", 2, 100, "UK", "London", [])
 
@@ -76,3 +82,14 @@ def created_bookings_repo():
     bookings_repo = BookingsRepository(conn)
 
     return bookings_repo
+
+
+
+@pytest.fixture
+def created_user_repo():
+    conn = DatabaseConnection(test_mode=True)
+    conn.connect()
+    conn.seed('seeds/users_seed.sql')
+    user_repo = UserRepository(conn)
+    
+    return user_repo

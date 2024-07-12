@@ -6,18 +6,17 @@ from lib.database_connection import get_flask_database_connection
 from lib.bookings import Bookings
 from lib.space_repository import SpaceRepository
 from lib.bookings_repository import BookingsRepository
-
+from helpers.consolidate_bookings import consolidate_bookings
 
 def reservations_routes(app):
     @app.route('/reservations', methods=['GET'])
     def get_reservations():
         connection = get_flask_database_connection(app)
         repository = BookingsRepository(connection)
-        user_id = session.get('user_id')
-        if user_id:
-            reservations = repository.get_by_requester_id(requester_id=user_id)
-        else:
-            reservations = repository.get_all()
+        user_id = session.get('email')
+        all_reservations = repository.get_by_requester_id(user_id)
+        reservations = consolidate_bookings(all_reservations)
+
         return render_template('reservations/index.html', reservations=reservations)
 
     @app.route('/reservations/<int:id>', methods=['GET'])

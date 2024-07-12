@@ -12,3 +12,8 @@ def spaces_routes(app):
     def view_all_spaces():
         spaces = SpaceRepository(get_flask_database_connection(app)).get_all()
         return render_template('view-all-spaces.html', spaces=spaces)
+
+    @app.route('/view-my-spaces', methods=['GET'])
+    def view_my_spaces():
+        spaces = SpaceRepository(get_flask_database_connection(app)).get_all()
+        return render_template('view-my-spaces.html', spaces=spaces)
