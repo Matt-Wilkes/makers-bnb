@@ -13,7 +13,7 @@ class Bookings:
         return self.__dict__ == value.__dict__
     
     def __str__(self) -> str:
-        return f"Bookings({self.id}, {self.spaces_id}, {self.requester_id}, {self.date}, {self.status}, {self.owner_id})"
+        return f"Bookings({self.id}, {self.spaces_id}, {self.requester_id}, {self.date}, {self.status})"
     
     def __repr__(self) -> str:
         return self.__str__()
