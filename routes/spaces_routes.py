@@ -51,8 +51,6 @@ def spaces_routes(app):
                     return redirect(url_for('view_my_spaces'))
                 flash('Space with such name and location already exists')
                 return render_template('new-space.html', form=form)
-                    return redirect('/view-my-spaces')
-                else:
-                    flash('Space with such name and location already exists')
-                    return render_template('new-space.html', form=form)
+
+                
         return render_template('new-space.html', form=form)
