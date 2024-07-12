@@ -1,34 +1,51 @@
 {% extends 'layout.html' %}
 {% block title %}Reservations{% endblock %}
 {% block content %}
-    <h1>Reservations</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Space Name </th>
-                <th>Owner email</th>
-                <th>Check-In</th>
-                <th>Check-Out</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for i in range(reservations['id']|length) %}
-                <tr>
-                    <td>{{ reservations['id'][i] }}</td>
-                    <td>{{ reservations['owner_id'][i] }}</td>
-                    <td>{{ reservations['check-in'][i] }}</td>
-                    <td>{{ reservations['check-out'][i] }}</td>
-                    <td>{{ reservations['status'][i] }}</td>
-                    <td>
-                        <a href="{{ url_for('get_reservation', id=reservations['id'][i]) }}">View</a>
-                    </td>
-                </tr>
-            {% endfor %}
-    </table>
+<div class="col"></div>
 
-    <a href="/spaces">Back to all spaces</a>
-    <a href="/bookings">Back to all bookings</a>
+    <div class="col">
+        <div class="card">
+            <h1 class="card-header">Reservations</h1>
+            <div class="card-body">
+                {% if session['active'] %}
+                    {% if reservations %}
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Owner email</th>
+                                    <th scope="col">Check-In</th>
+                                    <th scope="col">Check-Out</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in range(reservations['id']|length) %}
+                                    <tr>
+                                        <th scope="row">{{ reservations['id'][i] }}</td>
+                                        <td>{{ reservations['owner_id'][i] }}</td>
+                                        <td>{{ reservations['check-in'][i] }}</td>
+                                        <td>{{ reservations['check-out'][i] }}</td>
+                                        <td>{{ reservations['status'][i] }}</td>
+                                        <td>
+                                            <a href="{{ url_for('get_reservation', id=reservations['id'][i]) }}">View</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                        </table>
+                    {% else %}
+                        <p>You have no reservations.</p>
+                    {% endif %}
+
+                {% else %}
+                    <div class="_logged_out">You are not logged in. Please <a href="{{ url_for('login') }}">Login</a></div>
+                {% endif %}
+                <a href="{{ url_for('view_all_spaces') }}">Back to all spaces</a>
+                <a href="/bookings">Back to all bookings</a>
+            </div>
+        </div>
+    </div>
+
+<div class="col"></div>
 {% endblock %}

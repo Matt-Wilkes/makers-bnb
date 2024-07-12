@@ -1,28 +1,36 @@
 {% extends "layout.html" %}
 {% block title %}Reservation{% endblock %}
 {% block content %}
-<h1>Reservation</h1>
-{% if session['email'] %}
+<div class="col"></div>
 
-{% if reservation %}
-    <div class="_reservation_id">Reservation ID: {{ reservation.id }}</div>
-    <div class="_user_id">User ID: {{ reservation.requester_id }}</div>
-    <div class="_space_id">Spaces ID: {{ reservation.spaces_id }}</div>
-    <div class="_space_name">Spaces name: {{ space.name }}</div>
-    <div class="_confirmed">Status: {{ reservation.status }}</div>
+<div class="col-5">
+    <div class="card">
+        <h1 class="card-header">Reservation</h1>
 
-    <form action="{{ url_for('cancel_reservation', id=reservation.id) }}" method="post">
-        <input type="submit" value="Cancel">
+        <div class="card-body">
+            {% if session['email'] %}
+                {% if reservation %}
+                    <div class="_reservation_id">Reservation ID: {{ reservation.id }}</div>
+                    <div class="_user_id">User ID: {{ reservation.requester_id }}</div>
+                    <div class="_space_id">Spaces ID: {{ reservation.spaces_id }}</div>
+                    <div class="_space_name">Spaces name: {{ space.name }}</div>
+                    <div class="_confirmed">Status: {{ reservation.status }}</div>
 
-    <a href="{{ url_for('get_bookings') }}"> Back to all bookings</a>
+                    <form action="{{ url_for('cancel_reservation', id=reservation.id) }}" method="post">
+                        <input type="submit" value="Cancel">
+                    </form>
 
-{% else %}
-    <div>Booking not found</div>
-{% endif %}
+                {% else %}
+                    <div>Reservation not found</div>
+                {% endif %}
 
-{% else %}
-    <div>You must be logged in to view this page</div>
-    <a href="{{ url_for('login') }}">Login</a>
-    <a href="{{ url_for('signup') }}">Register</a>
-{% endif %}
+            {% else %}
+                <div class="_logged_out">You are not logged in. Please <a href="{{ url_for('login') }}">Login</a></div>
+            {% endif %}
+            <a href="{{ url_for('get_bookings') }}"> Back to all bookings</a>
+        </div>
+    </div>
+</div>
+
+<div class="col"></div>
 {% endblock %}

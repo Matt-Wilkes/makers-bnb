@@ -22,9 +22,9 @@ def apply_space_routes(app):
                 available_dates.append(booking.date)
                 sorted(available_dates)
                 print(booking.date)
-            
+
         return render_template('spaces/view-space.html', space=space, available_dates=available_dates)
-    
+
     @app.route('/view-space/<id>', methods=['POST'])
     def book(id):
         connection = get_flask_database_connection(app)
@@ -34,8 +34,8 @@ def apply_space_routes(app):
         booking = booking_repository.get_by_date_spaces_id(requested_date, id)
         booking_repository.request_booking(user_id, booking.id)
         return redirect(url_for('confirmation'))
-    
+
     @app.route('/confirmation', methods=['GET'])
     def confirmation():
         return render_template('spaces/confirmation.html')
-        
+
