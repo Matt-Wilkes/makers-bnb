@@ -21,7 +21,6 @@ def apply_space_routes(app):
             if booking.date > datetime.today().date():
                 available_dates.append(booking.date)
                 sorted(available_dates)
-                print(booking.date)
             
         return render_template('spaces/view-space.html', space=space, available_dates=available_dates)
     
@@ -32,7 +31,7 @@ def apply_space_routes(app):
         requested_date = request.form['available_dates']
         user_id = session['email']
         booking = booking_repository.get_by_date_spaces_id(requested_date, id)
-        booking_repository.request_booking(user_id, booking.id)
+        booking_repository.request_booking(user_id, booking[0].id)
         return redirect(url_for('confirmation'))
     
     @app.route('/confirmation', methods=['GET'])
