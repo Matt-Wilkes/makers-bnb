@@ -23,3 +23,7 @@ class SpaceRepository:
 
     def update(self, id, space):
         self.db_connection.execute("UPDATE spaces SET description = %s, name = %s, bedrooms = %s, price = %s, country = %s, city = %s, booked_dates = %s WHERE id = %s", [space.description, space.name, space.bedrooms, space.price, space.country, space.city, space.booked_dates, id])
+
+    def find_by_name_description(self,name,description):
+        row = self.db_connection.execute("SELECT * FROM spaces WHERE name = %s AND description = %s",[name,description])
+        return Space(row[0]['id'], row[0]['description'], row[0]['name'], row[0]['bedrooms'], row[0]['price'], row[0]['country'], row[0]['city'], row[0]['booked_dates'], row[0]['owner_id'])

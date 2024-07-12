@@ -16,6 +16,8 @@
                 <p class="mb-1" data-testid="t-price">£{{space.price}}</p>
                 <p class="" data-testid="t-location">{{space.city}}, {{space.country}}</p>
             </div>
+            
+            {%if space.owner_id != session['email']%}
             <div class="">
                 <form method="post">
                     <div class="mb-3" data-testid="t-available_dates">
@@ -34,7 +36,9 @@
                 </form>
             <div class="col-sm"></div>
             </div>
+            {%endif%}
         </div>
+        
     </div>
 </div>
 
