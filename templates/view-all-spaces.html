@@ -23,6 +23,7 @@
                         {% endif %}
                     {% endfor %}
                 </div>
+                <div><a href="{{ url_for('home') }}" class="btn btn-secondary btn-sm mt-2">Back</a></div>
             {% else %}
                 <div class="_logged_out">You are not logged in. Please <a href="{{ url_for('login') }}">Login</a></div>
             {% endif %}
@@ -32,3 +33,4 @@
 
 <div class="col"></div>
 {% endblock %}
+

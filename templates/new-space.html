@@ -1,24 +1,41 @@
 {% extends "layout.html" %}
-{% block title %}Spaces{% endblock %}
+{% block title %}New Space{% endblock %}
 {% block content %}
-<br>
-<h1> List a new space on Makers BnB </h1>
-<form>
-    <label for="name">Space name:</label><br>
-    <input type="text" id="name" name="name" size="50"><br>
-    <br>
-    <label for="description">Brief Description of the Space:</label><br>
-    <input type="text" id="description" name="description" size="50" ><br>
-    <br>
-    <label for="bedrooms">Number of Bedrooms:</label><br>
-    <input type="text" id="bedrooms" name="bedrooms" size="50" ><br>
-    <br>
-    <label for="city">City:</label><br>
-    <input type="text" id="city" name="city" size="50" ><br>
-    <br>
-    <label for="country">Country:</label><br>
-    <input type="text" id="country" name="county" size="50" ><br>
-    <br>
-    <input type="submit" value="Submit">
-</form>
+<div class="col"></div>
+
+<div class="col-5">
+    <div class="card">
+        <h1 class="card-header">New Space</h1>
+
+        <div class="card-body">
+            {% if session['active'] %}
+                {% for message in get_flashed_messages() %}
+                    <div class="alert alert-danger p-1" role="alert">{{ message }}</div>
+                {% endfor %}
+
+                <form action="new-space" method="post" class="form">
+                    <div>{{ form.description.label }}</div>
+                    <div>{{ form.description }}</div>
+                    <div>{{ form.name.label }}</div>
+                    <div>{{ form.name }}</div>
+                    <div>{{ form.bedrooms.label }}</div>
+                    <div>{{ form.bedrooms }}</div>
+                    <div>{{ form.price.label }}</div>
+                    <div>{{ form.price }}</div>
+                    <div>{{ form.country.label }}</div>
+                    <div>{{ form.country }}</div>
+                    <div>{{ form.city.label }}</div>
+                    <div>{{ form.city }}</div>
+                    <div>{{ form.hidden_tag() }}</div>
+                    <div class="mt-2">{{ form.submit() }}</div>
+                </form>
+                <a href="{{ url_for('view_my_spaces') }}" class="btn btn-secondary btn-sm mt-2">Back</a>
+            {% else %}
+                <div class="_logged_out alert alert-info p-1">You are not logged in. Please <a href="{{ url_for('login') }}">Login</a></div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="col"></div>
 {% endblock %}

@@ -9,6 +9,10 @@
 
         <div class="card-body">
             {% if session['active'] %}
+                {% for message in get_flashed_messages() %}
+                    <div class="alert alert-success p-1" role="alert">{{ message }}</span></div>
+                {% endfor %}
+
                 <div class="list-group">
                     {% for space in spaces %}
                         <!-- filter out spaces created by logged in user -->
@@ -23,12 +27,13 @@
                         {% endif %}
                     {% endfor %}
                 </div>
+            <a href="{{ url_for('new_space') }}" class="btn btn-secondary mt-2">Create Space</a>
+            <div><a href="{{ url_for('home') }}" class="btn btn-secondary btn-sm mt-2">Back</a></div>
             {% else %}
                 <div class="_logged_out">You are not logged in. Please <a href="{{ url_for('login') }}">Login</a></div>
             {% endif %}
         </div>
 
-        <div class="card-footer"><a href="#" class="btn btn-secondary">Create Space</a></div>
     </div>
 </div>
 
