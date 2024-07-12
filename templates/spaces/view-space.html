@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %}Spaces{% endblock %}
+{% block title %}{{space.name}}{% endblock %}
 {% block content %}
 <div class="col"></div>
 
@@ -27,7 +27,7 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            
+
                     </div>
                     <input type="hidden" id="session_email" name="session_email" value="{{session['email']}}">
                     <input class="btn btn-secondary" name="submit" type="submit" value="Book">
@@ -36,11 +36,6 @@
             </div>
         </div>
     </div>
-    
-    
-    
 </div>
-
-
 
 {% endblock %}

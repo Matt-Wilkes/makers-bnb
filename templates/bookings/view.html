@@ -1,35 +1,42 @@
 {% extends "layout.html" %}
 {% block title %}Booking{% endblock %}
 {% block content %}
-<h1>Booking</h1>
+<div class="col"></div>
 
-{% if session['active'] %}
-    <a href="{{ url_for('logout') }}">Logout</a>
+<div class="col-5">
+    <div class="card">
+        <h1 class="card-header">Booking</h1>
 
+        <div class="card-body">
+            {% if session['active'] %}
+                {% if bookings %}
+                    <div class="_booking_id">Booking ID: {{ bookings['id'][0] }}</div>
+                    <div class="_user_id">User ID: {{ bookings['requester_id'][0] }}</div>
+                    <div class="_space_id">Spaces ID: {{ bookings['spaces_id'][0] }}</div>
+                    <div class="_space_name">Spaces name: {{ space['name'] }}</div>
+                    <div class="_check_in">Check-in: {{ bookings['check-in'][0] }}</div>
+                    <div class="_check_out">Check-out: {{ bookings['check-out'][0] }}</div>
+                    <div class="_confirmed">Status: {{ bookings['status'][0] }}</div>
 
-{% if bookings %}
-    <div class="_booking_id">Booking ID: {{ bookings['id'][0] }}</div>
-    <div class="_user_id">User ID: {{ bookings['requester_id'][0] }}</div>
-    <div class="_space_id">Spaces ID: {{ bookings['spaces_id'][0] }}</div>
-    <div class="_space_name">Spaces name: {{ space['name'] }}</div>
-    <div class="_check_in">Check-in: {{ bookings['check-in'][0] }}</div>
-    <div class="_check_out">Check-out: {{ bookings['check-out'][0] }}</div>
-    <div class="_confirmed">Status: {{ bookings['status'][0] }}</div>
-    
-    <form action="{{ url_for('approve_booking', id=bookings['id'][0]) }}" method="post">
-        <input type="submit" value="Approve">
-    </form>
+                    <form action="{{ url_for('approve_booking', id=bookings['id'][0]) }}" method="post">
+                        <input type="submit" value="Approve">
+                    </form>
 
-    <form action="{{ url_for('reject_booking', id=bookings['id'][0]) }}" method="post">
-        <input type="submit" value="Reject">
-    </form>
+                    <form action="{{ url_for('reject_booking', id=bookings['id'][0]) }}" method="post">
+                        <input type="submit" value="Reject">
+                    </form>
 
-    <a href="{{ url_for('get_bookings') }}"> Back to all bookings</a>
-{% else %}
-    <div>Booking not found</div>
-{% endif %}
+                {% else %}
+                    <div>Booking not found</div>
+                {% endif %}
 
-{% else %}
-    <div class="_logged_out">You are not logged in. Please <a href="{{ url_for('login') }}">Login</a></div>
-{% endif %}
+            {% else %}
+                <div class="_logged_out">You are not logged in. Please <a href="{{ url_for('login') }}">Login</a></div>
+            {% endif %}
+            <a href="{{ url_for('get_bookings') }}"> Back to all bookings</a>
+        </div>
+    </div>
+</div>
+
+<div class="col"></div>
 {% endblock %}
