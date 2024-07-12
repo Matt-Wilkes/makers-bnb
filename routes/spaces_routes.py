@@ -7,6 +7,7 @@ from lib.bookings_repository import BookingsRepository
 from lib.bookings import Bookings
 from lib.forms import NewSpaceForm
 from datetime import datetime
+from datetime import timedelta
 
 def spaces_routes(app):
     @app.route('/view-all-spaces', methods=['GET'])
@@ -27,12 +28,27 @@ def spaces_routes(app):
             if form.validate_on_submit():
                 space = Space(None, form.description.data, form.name.data, form.bedrooms.data, form.price.data, form.country.data, form.city.data, [], session['email'])
                 space_return = SpaceRepository(get_flask_database_connection(app)).create(space)
+                
+            
+                
                 print('####################')
                 print(space_return)
                 if space_return:
-                    flash(f'You have created new space named {space_return['name']}')
-                    return redirect('/view-my-spaces')
-                else:
-                    flash('Space with such name and location already exists')
-                    return render_template('new-space.html', form=form)
+                    flash(f'You have created new space named {space.name}')
+                    created_space = SpaceRepository(get_flask_database_connection(app)).find_by_name_description(space.name, space.description)
+                    print(created_space)
+                    booking_repo = BookingsRepository(get_flask_database_connection(app))
+
+                    start_date = datetime.now()
+                    end_date = start_date + timedelta(days=31)
+
+                    current_date = start_date
+                    while current_date <= end_date:
+                        booking = Bookings(None, created_space.id, None, current_date, 'available', session['email'])
+                        booking_repo.create(booking)
+                        current_date += timedelta(days=1)
+            
+                    return redirect(url_for('view_my_spaces'))
+                flash('Space with such name and location already exists')
+                return render_template('new-space.html', form=form)
         return render_template('new-space.html', form=form)

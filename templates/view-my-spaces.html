@@ -18,7 +18,7 @@
                         <!-- filter out spaces created by logged in user -->
                         {% if space.owner_id == session['email'] %}
                         <div>
-                            <a href="#" class="list-group-item list-group-item-action">
+                            <a href="{{ url_for('view', id=space.id) }}" class="list-group-item list-group-item-action">
                                 <div class="h6">{{ space.city }}, {{ space.country }}</div>
                                 <div class="_name">{{ space.name }}</div>
                                 <div class="small">{{ space.description }}</div>

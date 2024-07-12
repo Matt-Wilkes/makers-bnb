@@ -13,8 +13,7 @@ class BookingsRepository:
         return Bookings(rows[0]['id'], rows[0]['spaces_id'], rows[0]['requester_id'], rows[0]['date'], rows[0]['status'], rows[0]['owner_id'])
     
     def create(self, bookings):
-        rows = self.db_connection.execute("INSERT INTO bookings (spaces_id, requester_id, date, status, owner_id) VALUES (%s, %s, %s, %s,%s)", [bookings.spaces_id, bookings.requester_id, bookings.date, bookings.status])
-        return Bookings(rows[0]['id'], rows[0]['spaces_id'], rows[0]['requester_id'], rows[0]['date'], rows[0]['status'], rows[0]['owner_id'])
+        self.db_connection.execute("INSERT INTO bookings (spaces_id, date, status, owner_id) VALUES (%s, %s, %s,%s)", [bookings.spaces_id, bookings.date, bookings.status, bookings.owner_id])
 
     def delete(self, id):
         self.db_connection.execute("DELETE FROM bookings WHERE id = %s", [id])
