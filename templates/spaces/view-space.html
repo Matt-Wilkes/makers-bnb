@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block title %}Spaces{% endblock %}
+{% block content %}
+<div class="col"></div>
+
+<div class="container">
+    <h1 class="card-header">{{space.name}}</h1>
+    <div class="row">
+        <div class="col-sm">
+            <img class="img-fluid" src="http://localhost:5001/static/images/{{space.id}}/image1.webp" alt="">
+        </div>
+        <div class="col-sm">
+            <div class="mb-3">
+                <p class="mb-1" data-testid="t-description">{{space.description}}</p>
+                <p class="mb-1" data-testid="t-bedrooms">{{space.bedrooms}} Bedrooms</p>
+                <p class="mb-1" data-testid="t-price">£{{space.price}}</p>
+                <p class="" data-testid="t-location">{{space.city}}, {{space.country}}</p>
+            </div>
+            <div class="">
+                <form method="post">
+                    <div class="mb-3" data-testid="t-available_dates">
+                        <label class="h6 btn-group" for="available_dates">Available Dates</label>
+                            <div class="">
+                                <select class="btn btn-outline-secondary btn-sm dropdown-toggle" name="available_dates" id="available_dates">
+                                    {% for date in available_dates %}
+                                    <option class="" data-testid="t-select_date" value="{{date}}">{{date}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            
+                    </div>
+                    <input type="hidden" id="session_email" name="session_email" value="{{session['email']}}">
+                    <input class="btn btn-secondary" name="submit" type="submit" value="Book">
+                </form>
+            <div class="col-sm"></div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+</div>
+
+
+
+{% endblock %}

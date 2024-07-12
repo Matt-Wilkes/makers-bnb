@@ -52,6 +52,16 @@ class BookingsRepository:
         rows = self.db_connection.execute("SELECT * FROM bookings WHERE owner_id = %s",[owner_id])
         return [Bookings(row['id'], row['spaces_id'], row['requester_id'], row['date'], row['status'], row['owner_id']) for row in rows]
 
+    
+    def get_by_spaces_id_available(self, spaces_id):
+        rows = self.db_connection.execute("select * from bookings WHERE spaces_id = %s AND status IN('available','Pending')",[spaces_id])
+        return [Bookings(row['id'], row['spaces_id'], row['requester_id'], row['date'], row['status'], row['owner_id']) for row in rows]
+    
+    def request_booking(self, requester_id, id):
+        self.db_connection.execute("UPDATE bookings SET requester_id = %s,status = 'Pending' WHERE id = %s",[requester_id, id]) 
+    
+
+
     def get_by_owner_id_status(self,owner_id,status):
         rows = self.db_connection.execute("SELECT * FROM bookings WHERE owner_id = %s AND status = %s",[owner_id,status])
         return [Bookings(row['id'], row['spaces_id'], row['requester_id'], row['date'], row['status'], row['owner_id']) for row in rows]

@@ -8,7 +8,7 @@ from lib.space import Space
 from routes.bookings_routes import bookings_routes
 from routes.users_routes import users_routes
 from routes.spaces_routes import spaces_routes
-from view_space_routes import apply_space_routes
+from routes.view_space_routes import apply_space_routes
 from routes.reservations_routes import reservations_routes
 
 app = Flask(__name__)
